@@ -1,0 +1,221 @@
+---
+---
+<nav class="navbar" id="navbar">
+    <div class="nav-container">
+        <div class="logo">PR-Studios</div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="/" class="nav-link">Home</a></li>
+            <li><a href="/bio" class="nav-link">Bio</a></li>
+            <li><a href="/music" class="nav-link">Music</a></li>
+        </ul>
+        <div class="nav-actions">
+            <button class="search-btn" id="searchBtn" title="Search">
+                <i class="fas fa-search"></i>
+            </button>
+            <button class="theme-toggle" id="themeToggle" title="Toggle Theme">
+                <i class="fas fa-sun"></i>
+            </button>
+        </div>
+        <button class="mobile-toggle" id="mobileToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+</nav>
+
+<style>
+    /* Enhanced Navbar */
+    .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: rgba(10, 10, 10, 0.95);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border-color);
+        z-index: 1000;
+        transition: all 0.3s ease;
+    }
+
+    .navbar.scrolled {
+        background: rgba(10, 10, 10, 0.98);
+        box-shadow: var(--shadow);
+    }
+
+    .nav-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .logo {
+        font-size: 1.8rem;
+        font-weight: 700;
+        background: var(--gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .nav-links {
+        display: flex;
+        list-style: none;
+        gap: 2rem;
+    }
+
+    .nav-links a {
+        color: var(--text-secondary);
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        position: relative;
+        padding: 0.5rem 0;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+        color: var(--primary-color);
+    }
+
+    .nav-links a::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--gradient);
+        transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+        width: 100%;
+    }
+
+    .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .search-btn,
+    .theme-toggle {
+        background: var(--glass-bg);
+        border: 1px solid var(--border-color);
+        color: var(--text-primary);
+        border-radius: 50%;
+        width: 45px;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .search-btn:hover,
+    .theme-toggle:hover {
+        background: var(--primary-color);
+        border-color: var(--primary-color);
+        box-shadow: var(--hover-glow);
+        transform: translateY(-2px);
+    }
+
+    .mobile-toggle {
+        display: none;
+        background: none;
+        border: none;
+        color: var(--text-primary);
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+        .mobile-toggle {
+            display: block;
+        }
+
+        .nav-links {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.98);
+            flex-direction: column;
+            padding: 2rem;
+            transform: translateY(-100%);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links.active {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .nav-actions {
+            display: none;
+        }
+    }
+</style>
+
+<script>
+    // Navigation functionality
+    const navbar = document.getElementById('navbar');
+    const mobileToggle = document.getElementById('mobileToggle');
+    const navLinks = document.getElementById('navLinks');
+    const themeToggle = document.getElementById('themeToggle');
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 100) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+
+    // Mobile navigation toggle
+    mobileToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        const icon = mobileToggle.querySelector('i');
+        icon.classList.toggle('fa-bars');
+        icon.classList.toggle('fa-times');
+    });
+
+    // Active link highlighting
+    const currentPath = window.location.pathname;
+    const links = document.querySelectorAll('.nav-link');
+    links.forEach(link => {
+        if (link.getAttribute('href') === currentPath) {
+            link.classList.add('active');
+        }
+    });
+
+    // Theme toggle functionality
+    if (themeToggle) {
+        let isDarkMode = true;
+        themeToggle.addEventListener('click', () => {
+            isDarkMode = !isDarkMode;
+            document.body.classList.toggle('light-mode');
+            const icon = themeToggle.querySelector('i');
+            icon.className = isDarkMode ? 'fas fa-sun' : 'fas fa-moon';
+        });
+    }
+
+    // Search functionality (placeholder)
+    const searchBtn = document.getElementById('searchBtn');
+    if (searchBtn) {
+        searchBtn.addEventListener('click', () => {
+            const query = prompt('What would you like to search for?');
+            if (query) {
+                alert(`Searching for: ${query}`);
+            }
+        });
+    }
+</script>
