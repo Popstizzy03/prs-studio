@@ -1,5 +1,12 @@
 ---
-
+import Navbar from '../components/home/Navbar.astro';
+import Hero from '../components/home/Hero.astro'
+import About from '../components/home/About.astro'
+import Gallery from '../components/home/Gallery.astro'
+import Music from '../components/home/Music.astro'
+import Contact from '../components/home/Contact.astro'
+import Explore from '../components/home/Explore.astro';
+import Footer from '../components/home/Footer.astro';
 ---
 
 <html lang="en">
@@ -8,9 +15,45 @@
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<title>Prs Studio</title>
+		<style>
+		        :root {
+            --primary-color: #5D5CDE;
+            --secondary-color: #ff3b30;
+            --dark-bg: #0a0a0a;
+            --card-bg: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --border-color: #333;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            --hover-glow: 0 0 20px rgba(93, 92, 222, 0.3);
+        }
+
+		        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+		</style>
 	</head>
 	<body>
-		<h1>Astro</h1>
+		<Navbar />
+		<Hero />
+		<About />
+		<Gallery />
+		<Music />
+		<Contact />
+		<Explore />
+		<Footer />
 	</body>
 </html>

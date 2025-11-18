@@ -1,0 +1,80 @@
+---
+
+---
+
+    <!-- Explore Section -->
+    <div id="explore" class="section explore-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="section-title">Explore More</h2>
+                <p class="section-subtitle">Discover all the amazing features and content we have to offer</p>
+            </div>
+            
+            <div class="explore-grid">
+                <a href="index.html" class="explore-item" data-aos="fade-up" data-aos-delay="100">
+                    <span>Home</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+                <a href="bio.html" class="explore-item" data-aos="fade-up" data-aos-delay="150">
+                    <span>Autobiography</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+                <a href="Index12.html" class="explore-item" data-aos="fade-up" data-aos-delay="250">
+                    <span>Music</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+                <a href="#concerts" class="explore-item" data-aos="fade-up" data-aos-delay="300">
+                    <span>Concerts</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+                <a href="#activities" class="explore-item" data-aos="fade-up" data-aos-delay="350">
+                    <span>Activities</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <style>
+            /* Explore Section */
+        .explore-section {
+            background: var(--card-bg);
+        }
+
+        .explore-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .explore-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.5rem;
+            background: var(--dark-bg);
+            border-radius: 15px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+            font-weight: 500;
+        }
+
+        .explore-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 25px rgba(93, 92, 222, 0.2);
+        }
+
+        .explore-item i {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .explore-item:hover i {
+            transform: translateX(5px);
+        }
+    </style>
