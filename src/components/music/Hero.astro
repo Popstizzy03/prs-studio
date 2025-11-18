@@ -1,0 +1,140 @@
+---
+---
+    <!-- Enhanced Hero Section -->
+    <div class="hero-section">
+        <div class="hero-slide active">
+            <img src="pics/1.png" alt="Discover Music">
+            <div class="hero-overlay"></div>
+            <div class="hero-text">
+                <h1>Discover New Music</h1>
+                <p>Explore millions of songs from your favorite artists and discover your next obsession</p>
+                <a href="#browse" class="hero-cta">
+                    <i class="fas fa-play"></i>
+                    Start Listening
+                </a>
+            </div>
+        </div>
+        <div class="hero-slide">
+            <img src="pics/3.jpg" alt="Curated Playlists">
+            <div class="hero-overlay"></div>
+            <div class="hero-text">
+                <h1>Curated Playlists</h1>
+                <p>Handpicked collections for every mood, moment, and musical journey</p>
+                <a href="#playlists" class="hero-cta">
+                    <i class="fas fa-headphones"></i>
+                    Browse Playlists
+                </a>
+            </div>
+        </div>
+        <div class="hero-slide">
+            <img src="pics/5.jpg" alt="Exclusive Content">
+            <div class="hero-overlay"></div>
+            <div class="hero-text">
+                <h1>Exclusive Content</h1>
+                <p>Get early access to new releases and exclusive tracks from top artists</p>
+                <a href="#exclusive" class="hero-cta">
+                    <i class="fas fa-star"></i>
+                    Go Premium
+                </a>
+            </div>
+        </div>
+    </div>
+<style>
+        /* Enhanced Hero Section */
+        .hero-section {
+            position: relative;
+            height: 70vh;
+            overflow: hidden;
+            border-radius: 0 0 30px 30px;
+            margin-bottom: 2rem;
+        }
+
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: scale(1.1);
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .hero-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.6);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(93, 92, 222, 0.3), rgba(255, 59, 48, 0.2));
+        }
+
+        .hero-text {
+            position: absolute;
+            bottom: 3rem;
+            left: 3rem;
+            z-index: 2;
+            max-width: 500px;
+        }
+
+        .hero-text h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #fff, #f0f0f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--gradient);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(93, 92, 222, 0.4);
+        }
+</style>
+<script>
+        function startHeroSlideshow() {
+            const slides = document.querySelectorAll('.hero-slide');
+            let currentSlide = 0;
+            
+            setInterval(() => {
+                if (slides.length > 0) {
+                    slides[currentSlide].classList.remove('active');
+                    currentSlide = (currentSlide + 1) % slides.length;
+                    slides[currentSlide].classList.add('active');
+                }
+            }, 5000);
+        }
+        startHeroSlideshow();
+</script>

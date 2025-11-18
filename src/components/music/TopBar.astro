@@ -1,0 +1,131 @@
+---
+---
+    <!-- Enhanced Top Bar -->
+    <div class="top-bar">
+        <div class="top-bar-content">
+            <div class="logo">PR-STUDIOS</div>
+            
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Search songs, artists, albums..." id="searchInput">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+            
+            <div class="top-bar-controls">
+                <button class="control-button" id="themeToggle" title="Toggle Theme">
+                    <i class="fas fa-sun"></i>
+                </button>
+                <button class="control-button" id="shuffleBtn" title="Shuffle">
+                    <i class="fas fa-random"></i>
+                </button>
+                <button class="control-button" id="repeatBtn" title="Repeat">
+                    <i class="fas fa-redo"></i>
+                </button>
+                <button class="sign-in">Sign In</button>
+            </div>
+        </div>
+    </div>
+<style>
+        /* Enhanced Top Bar */
+        .top-bar {
+            position: sticky;
+            top: 0;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .top-bar-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .top-bar-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .search-container {
+            position: relative;
+            margin: 0 1rem;
+        }
+
+        .search-input {
+            background: var(--glass-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 25px;
+            padding: 0.75rem 2.5rem 0.75rem 1rem;
+            color: var(--text-primary);
+            width: 300px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: var(--hover-glow);
+            width: 350px;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+
+        .control-button {
+            background: var(--glass-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        .control-button:hover {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            box-shadow: var(--hover-glow);
+            transform: translateY(-2px);
+        }
+
+        .sign-in {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .sign-in:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--hover-glow);
+        }
+</style>

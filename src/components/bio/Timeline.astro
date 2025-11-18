@@ -1,3 +1,5 @@
+---
+---
     <!-- Timeline Section -->
     <section id="timeline" class="timeline-section">
         <div class="container">
@@ -59,3 +61,261 @@
             </div>
         </div>
     </section>
+<style>
+        /* Timeline Section */
+        .timeline-section {
+            padding: 5rem 0;
+            background: var(--dark-bg);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--gradient);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin: 2rem 0;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-right: 50%;
+            padding-right: 2rem;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-left: 50%;
+            padding-left: 2rem;
+        }
+
+        .timeline-content {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+            border-color: var(--primary-color);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 2rem;
+            width: 20px;
+            height: 20px;
+            background: var(--gradient);
+            border-radius: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            border: 4px solid var(--dark-bg);
+        }
+
+        .timeline-year {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-desc {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+</style>
+<script>
+        // Timeline modal content
+        const timelineData = [
+            {
+                title: "Early Childhood (1995-2000)",
+                content: `
+                    <h2>Early Childhood</h2>
+                    <img src="pics/1.png" alt="Childhood photo">
+                    <p>My journey began in a small town where curiosity and wonder filled every day. These formative years were characterized by endless questions, imaginative play, and the foundation of values that would guide me throughout life.</p>
+                    <p>Key memories from this period include learning to read at age 4, my first bicycle ride, and countless hours spent exploring nature. These experiences instilled in me a lifelong love of learning and adventure.</p>
+                    <h3>Notable Achievements:</h3>
+                    <ul>
+                        <li>Learned to read before starting school</li>
+                        <li>Won first art competition at age 5</li>
+                        <li>Developed early interest in music and storytelling</li>
+                    </ul>
+                `
+            },
+            {
+                title: "School Years (2001-2012)",
+                content: `
+                    <h2>School Years</h2>
+                    <img src="pics/2.png" alt="School photo">
+                    <p>The school years brought structure, friendship, and academic discovery. This period was marked by steady growth in knowledge, the development of lasting friendships, and the beginning of specialized interests.</p>
+                    <p>During these years, I excelled in both academics and extracurricular activities, particularly in science, literature, and music. The foundation for my future career began to take shape through various projects and competitions.</p>
+                    <h3>Key Milestones:</h3>
+                    <ul>
+                        <li>Graduated as valedictorian</li>
+                        <li>Captain of the debate team for 3 years</li>
+                        <li>Composed first musical piece at age 14</li>
+                        <li>Published articles in school newspaper</li>
+                    </ul>
+                `
+            },
+            {
+                title: "College Life (2013-2017)",
+                content: `
+                    <h2>College Life</h2>
+                    <img src="pics/3.jpg" alt="College photo">
+                    <p>College was a transformative period that expanded my horizons and challenged my perspectives. Studying Computer Science with a minor in Music Theory, I learned to balance technical precision with creative expression.</p>
+                    <p>This phase was characterized by intense learning, personal growth, and the formation of lifelong professional networks. Internships and research projects provided real-world experience that would prove invaluable.</p>
+                    <h3>Achievements:</h3>
+                    <ul>
+                        <li>Bachelor's Degree in Computer Science (Magna Cum Laude)</li>
+                        <li>Minor in Music Theory</li>
+                        <li>President of Computer Science Society</li>
+                        <li>3 published research papers</li>
+                        <li>Summer internships at leading tech companies</li>
+                    </ul>
+                `
+            },
+            {
+                title: "Career Beginnings (2018-2020)",
+                content: `
+                    <h2>Career Beginnings</h2>
+                    <img src="pics/4.jpg" alt="First job photo">
+                    <p>The transition from academic life to the professional world brought new challenges and opportunities. Starting as a Junior Developer, I quickly learned the importance of collaboration, continuous learning, and adaptability.</p>
+                    <p>These early years in the industry were crucial for developing both technical skills and professional maturity. Every project was a learning opportunity, and every challenge was a chance to grow.</p>
+                    <h3>Professional Growth:</h3>
+                    <ul>
+                        <li>Junior to Senior Developer promotion in 18 months</li>
+                        <li>Led team of 5 developers on major project</li>
+                        <li>Implemented innovative solutions saving company $50K annually</li>
+                        <li>Mentored 3 junior developers</li>
+                    </ul>
+                `
+            },
+            {
+                title: "Major Achievements (2021-2023)",
+                content: `
+                    <h2>Major Achievements</h2>
+                    <img src="pics/5.jpg" alt="Achievement photo">
+                    <p>This period marked significant professional and personal milestones. Taking on leadership roles and complex projects, I was able to make meaningful contributions to both my organization and the broader tech community.</p>
+                    <p>The combination of technical expertise and creative thinking led to breakthrough innovations and recognition in the industry.</p>
+                    <h3>Key Accomplishments:</h3>
+                    <ul>
+                        <li>Promoted to Technical Lead</li>
+                        <li>Patent filed for innovative algorithm</li>
+                        <li>Speaker at 5 international conferences</li>
+                        <li>Started successful side business</li>
+                        <li>Published technical book</li>
+                    </ul>
+                `
+            },
+            {
+                title: "Present Day (2024-Present)",
+                content: `
+                    <h2>Present Day</h2>
+                    <img src="pics/1.png" alt="Current photo">
+                    <p>Today, I continue to pursue excellence in both technology and creative endeavors. As a Senior Technical Lead, I'm focused on building the next generation of innovative solutions while mentoring emerging talent.</p>
+                    <p>The journey continues with new challenges, opportunities, and goals. The foundation built over the years now supports ambitious projects and meaningful contributions to the community.</p>
+                    <h3>Current Focus:</h3>
+                    <ul>
+                        <li>Leading AI/ML initiatives</li>
+                        <li>Mentoring program for underrepresented groups in tech</li>
+                        <li>Contributing to open-source projects</li>
+                        <li>Developing next album of original compositions</li>
+                        <li>Planning technology education foundation</li>
+                    </ul>
+                `
+            }
+        ];
+
+        // Timeline interaction
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        const modal = document.getElementById('timelineModal');
+        const modalBody = document.getElementById('modalBody');
+        const modalClose = document.getElementById('modalClose');
+
+        timelineItems.forEach((item, index) => {
+            item.addEventListener('click', () => {
+                modalBody.innerHTML = timelineData[index].content;
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        // Close modal
+        modalClose.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Timeline scroll animation
+        const observerOptions = {
+            threshold: 0.3,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const timelineObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        timelineItems.forEach(item => {
+            timelineObserver.observe(item);
+        });
+</script>
