@@ -16,6 +16,7 @@ import Footer from '../components/home/Footer.astro';
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<title>Prs Studio</title>
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 		<style>
 		        :root {
             --primary-color: #5D5CDE;
@@ -35,6 +36,10 @@ import Footer from '../components/home/Footer.astro';
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+
+        html, body {
         }
 
         body {
@@ -57,11 +62,12 @@ import Footer from '../components/home/Footer.astro';
 		<Footer />
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 		<script>
-			// Initialize AOS
-			AOS.init({
-				duration: 800,
-				once: true,
-				offset: 100
+			document.addEventListener('DOMContentLoaded', function() {
+				AOS.init({
+					duration: 800,
+					once: true,
+					offset: 100
+				});
 			});
 		</script>
 	</body>
