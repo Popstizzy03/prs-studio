@@ -55,5 +55,14 @@ import Footer from '../components/home/Footer.astro';
 		<Contact />
 		<Explore />
 		<Footer />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+		<script>
+			// Initialize AOS
+			AOS.init({
+				duration: 800,
+				once: true,
+				offset: 100
+			});
+		</script>
 	</body>
 </html>

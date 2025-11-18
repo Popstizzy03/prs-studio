@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+    <link rel="website icon" type="jpg" href="pics/null.jpg">
+    <title>Music</title>
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: #000;
+            color: #fff;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.light-mode {
+            background-color: #fff;
+            color: #000;
+        }
+
+        .top-bar {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .light-mode .top-bar {
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .logo {
+            color: #fff;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .light-mode .logo {
+            color: #000;
+        }
+
+        .sign-in,
+        #themeToggle {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            cursor: pointer;
+            border-radius: 20px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            margin-left: 10px;
+        }
+
+        .light-mode .sign-in,
+        .light-mode #themeToggle {
+            background-color: rgba(0, 0, 0, 0.1);
+            color: #000;
+        }
+
+        .sign-in:hover,
+        #themeToggle:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .light-mode .sign-in:hover,
+        .light-mode #themeToggle:hover {
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-section {
+            position: relative;
+            height: 400px;
+            /* Adjust as needed */
+            overflow: hidden;
+        }
+
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+        }
+
+        .hero-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-text {
+            position: absolute;
+            top: 80%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-text h1 {
+            font-size: 2.5em;
+            margin-bottom: 0.5em;
+        }
+
+        .hero-text p {
+            font-size: 1.2em;
+        }
+
+        .main-content {
+            padding: 20px;
+        }
+
+        .section-header {
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .carousel {
+            display: flex;
+            overflow-x: auto;
+            gap: 20px;
+            padding-bottom: 20px;
+            scroll-snap-type: x mandatory;
+        }
+
+        .carousel::-webkit-scrollbar {
+            display: none;
+        }
+
+        .carousel-item {
+            flex: 0 0 auto;
+            width: 200px;
+            scroll-snap-align: start;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .carousel-item:hover {
+            transform: scale(1.05);
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .carousel-item .title {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .carousel-item .subtitle {
+            color: #999;
+        }
+
+        .music-controls {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(40, 40, 40, 0.8);
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+
+        .light-mode .music-controls {
+            background-color: rgba(220, 220, 220, 0.8);
+        }
+
+        .controls-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        #trackInfo {
+            flex-grow: 1;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        #albumArt {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+            border-radius: 5px;
+        }
+
+        #songInfo {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #songTitle {
+            font-weight: bold;
+        }
+
+        #songArtist {
+            font-size: 0.9em;
+            color: #999;
+        }
+
+        .light-mode #songArtist {
+            color: #666;
+        }
+
+        #playPause,
+        #nextTrack,
+        #volume {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+            margin: 0 5px;
+            transition: color 0.3s ease;
+        }
+
+        .light-mode #playPause,
+        .light-mode #nextTrack,
+        .light-mode #volume {
+            color: #000;
+        }
+
+        #playPause:hover,
+        #nextTrack:hover,
+        #volume:hover {
+            color: #ff3b30;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 5px;
+            background-color: #333;
+            border-radius: 2.5px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .light-mode .progress-bar {
+            background-color: #ccc;
+        }
+
+        .progress {
+            width: 0%;
+            height: 100%;
+            background-color: #fff;
+            transition: width 0.1s linear;
+        }
+
+        .light-mode .progress {
+            background-color: #000;
+        }
+
+        .footer {
+            margin-bottom: 80px;
+            background-color: rgba(40, 40, 40, 0.8);
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #999;
+        }
+
+        .light-mode .footer {
+            background-color: rgba(220, 220, 220, 0.8);
+            color: #666;
+        }
+
+        /* New styles for volume slider */
+        #volumeControl {
+            display: none;
+            position: absolute;
+            bottom: 100%;
+            right: 0;
+            width: 100px;
+            height: 10px;
+            background-color: #333;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .light-mode #volumeControl {
+            background-color: #ccc;
+        }
+
+        #volumeSlider {
+            width: 100%;
+            height: 100%;
+            -webkit-appearance: none;
+            background: transparent;
+            outline: none;
+        }
+
+        #volumeSlider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 10px;
+            height: 10px;
+            background: #fff;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+
+        .light-mode #volumeSlider::-webkit-slider-thumb {
+            background: #000;
+        }
+
+        #volumeSlider::-moz-range-thumb {
+            width: 10px;
+            height: 10px;
+            background: #fff;
+            cursor: pointer;
+            border-radius: 50%;
+            border: none;
+        }
+
+        .light-mode #volumeSlider::-moz-range-thumb {
+            background: #000;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #222;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .song-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .song-list li {
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .song-list li:hover {
+            background-color: #333;
+        }
+
+        .more-to-explore {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            padding: 1rem;
+            background-color: #1c1c1c;
+            border-radius: 10px;
+        }
+
+        .more-to-explore h2 {
+            width: 100%;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .explore-item {
+            flex: 1 0 calc(33.333% - 1rem);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            background-color: #2a2a2a;
+            border-radius: 8px;
+            color: #ff3b30;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            height: 50px;
+            /* Fixed height */
+            box-sizing: border-box;
+            /* Include padding in height calculation */
+        }
+
+        .explore-item:hover {
+            background-color: #3a3a3a;
+            transform: translateY(-5px);
+        }
+
+        .explore-item::after {
+            content: '>';
+            color: #ff3b30;
+        }
+
+        @media (max-width: 768px) {
+            .explore-item {
+                flex: 1 0 calc(50% - 1rem);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .explore-item {
+                flex: 1 0 100%;
+            }
+        }
+
+        .music-controls {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(40, 40, 40, 0.8);
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+
+        .footer {
+            background-color: rgba(40, 40, 40, 0.8);
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 80px;
+            /* Add margin to accommodate music controls */
+        }
+
+        .light-mode .more-to-explore {
+            background-color: #fff;
+        }
+
+        .light-mode .explore-item {
+            background-color: #ccc;
+        }
+
+        .light-mode .explore-item:hover {
+            background-color: #888;
+            color: #1c1c1c;
+        }
+
+        .light-mode .main-content {
+            color: #ccc;
+
+        }
+
+        .light-mode .modal-content {
+            color: #ccc;
+        }
+
+        /* New styles for the theme toggle button */
+        #themeToggle {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #fff;
+        }
+
+        .light-mode #themeToggle {
+            color: #000;
+        }
+
+        /* Updated styles for explore items */
+        .explore-item {
+            text-decoration: none;
+            color: inherit;
+        }
+
+
+        /* Styles for social media icons */
+        .social-icons {
+            margin-top: 10px;
+        }
+
+        .social-icons a {
+            color: #999;
+            font-size: 20px;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+
+        .social-icons a:hover {
+            color: #fff;
+        }
+
+        .light-mode .social-icons a:hover {
+            color: #000;
+        }
+
+        /* Updated styles for the progress bar to make it draggable */
+        .progress-bar {
+            cursor: pointer;
+        }
+
+        .progress {
+            pointer-events: none;
+        }
+
+
+        .singles-section {
+            margin-bottom: 20px;
+        }
+
+        #singles .carousel-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 150px;
+            margin-right: 15px;
+        }
+
+        #singles .carousel-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+
+        #singles .carousel-item .song-title {
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+
+        #singles .carousel-item .song-artist {
+            font-size: 0.9em;
+            color: #888;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="top-bar">
+        <div class="logo">PR-STUDIOS</div>
+        <div>
+            <button id="themeToggle"><i class="fas fa-sun"></i></button>
+            <button class="sign-in">Sign In</button>
+        </div>
+    </div>
+    <div class="hero-section">
+        <div class="hero-slide active">
+            <img src="pics/1.png" alt="Hero 1">
+            <div class="hero-text">
+                <h1>Discover New Music</h1>
+                <p>Listen to millions of songs</p>
+            </div>
+        </div>
+        <div class="hero-slide">
+            <img src="pics/3.jpg" alt="Hero 2">
+            <div class="hero-text">
+                <h1>Curated Playlists</h1>
+                <p>Find the perfect soundtrack for any moment</p>
+            </div>
+        </div>
+        <div class="hero-slide">
+            <img src="pics/5.jpg" alt="Hero 3">
+            <div class="hero-text">
+                <h1>Exclusive Content</h1>
+                <p>Get early access to new releases</p>
+            </div>
+        </div>
+    </div>
+    <div class="main-content">
+        <h2 class="section-header">Browse</h2>
+        <div class="singles-section">
+            <h3 class="section-header">Singles</h3>
+            <div class="carousel" id="singles"></div>
+        </div>
+        <h3 class="section-header">Featured Playlists</h3>
+        <div class="carousel" id="featuredPlaylists"></div>
+        <h3 class="section-header">Trending Songs</h3>
+        <div class="carousel" id="trendingSongs"></div>
+        <h3 class="section-header">New Releases</h3>
+        <div class="carousel" id="newReleases"></div>
+        <h3 class="section-header">Just Updated</h3>
+        <div class="carousel" id="justUpdated"></div>
+    </div>
+    <div class="more-to-explore">
+        <h2>More to Explore</h2>
+        <a href="home.html" class="explore-item">Home</a>
+        <a href="bio.html" class="explore-item">Autobiography</a>
+        <a href="shop.html" class="explore-item">Shop</a>
+        <a href="Index12.html" class="explore-item">Music</a>
+        <a href="#concerts" class="explore-item">Concerts</a>
+        <a href="#moods" class="explore-item">Moods and Activities</a>
+    </div>
+    <div class="music-controls">
+        <div class="controls-row">
+            <div id="trackInfo">
+                <img id="albumArt" src="pics/null.jpg" alt="Album Art">
+                <div id="songInfo">
+                    <span id="songTitle">No track playing</span>
+                    <span id="songArtist"></span>
+                </div>
+            </div>
+            <button id="playPause"><i class="fas fa-play"></i></button>
+            <button id="nextTrack"><i class="fas fa-step-forward"></i></button>
+            <div style="position: relative;">
+                <button id="volume"><i class="fas fa-volume-up"></i></button>
+                <div id="volumeControl">
+                    <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="1">
+                </div>
+            </div>
+        </div>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+    </div>
+    <div class="footer">
+        <p>Choose Language | Copyright © 2024 PR-Studios. All rights reserved. | Terms of Use | Privacy Policy</p>
+        <div class="social-icons">
+            <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+        </div>
+    </div>
+    <div id="albumModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <ul class="song-list" id="modalSongList"></ul>
+        </div>
+    </div>
+    <script>
+        // Sample data with real songs and albums
+        const featuredPlaylists = [
+            {
+                title: "Amalumbo",
+                artist: "Sampa The Psalmist",
+                image: "pics/1.png",
+                subtitle: "PRS Music Hits",
+                audio: "music/1.mp3",
+            },
+            {
+                title: "Jah",
+                artist: "Sampa The Psalmist",
+                image: "pics/2.png",
+                subtitle: "PRS Music Hip-Hop",
+                audio: "music/3.mp3",
+            },
+            {
+                title: "Mulenjibukisha",
+                artist: "Sampa The Psalmist",
+                image: "pics/3.jpg",
+                subtitle: "Made for You",
+                audio: "music/2.mp3",
+            },
+        ];
+
+        const trendingSongs = [
+            {
+                title: "Redemption",
+                artist: "Sampa The Psalmist",
+                image: "pics/2.png",
+                audio: "music/4.mp3",
+            },
+            {
+                title: "Jah",
+                artist: "Sampa The Psalmist",
+                image: "pics/1.png",
+                audio: "music/3.mp3",
+            },
+            {
+                title: "Mulenjibukisha",
+                artist: "Sampa The Psalmist",
+                image: "pics/5.jpg",
+                audio: "music/2.mp3",
+            },
+        ];
+
+        const newReleases = [
+            {
+                title: "Album 1",
+                artist: "Sampa The Psalmist",
+                image: "pics/5.jpg",
+                songs: [
+                    {
+                        title: "Amalumbo",
+                        artist: "Sampa The Psalmist",
+                        image: "pics/1.png",
+                        audio: "music/1.mp3",
+                    },
+                    {
+                        title: "Mulenjibukisha",
+                        artist: "Sampa The Psalmist",
+                        image: "pics/2.png",
+                        audio: "music/2.mp3",
+                    },
+                    {
+                        title: "Jah",
+                        artist: "Sampa The Psalmist",
+                        image: "pics/3.jpg",
+                        audio: "music/3.mp3",
+                    },
+                    {
+                        title: "Redemption",
+                        artist: "Sampa The Psalmist",
+                        image: "pics/4.jpg",
+                        audio: "music/4.mp3",
+                    },
+                ],
+            },
+            {
+                title: "Album 1",
+                artist: "Sampa The Psalmist",
+                image: "pics/5.jpg",
+                songs: [
+                    {
+                        title: "Amalumbo",
+                        artist: "Sampa The Psalmist",
+                        image: "pics/1.png",
+                        audio: "music/1.mp3",
+                    },
+                    {
+                        title: "Mulenjibukisha",
+                        artist: "Sampa The Psalmist",
+                        image: "pics/2.png",
+                        audio: "music/2.mp3",
+                    },
+                    {
+                        title: "Jah",
+                        artist: "Sampa The Psalmist",
+                        image: "pics/3.jpg",
+                        audio: "music/3.mp3",
+                    },
+                    {
+                        title: "Redemption",
+                        artist: "Sampa The Psalmist",
+                        image: "pics/4.jpg",
+                        audio: "music/4.mp3",
+                    },
+                ],
+            },
+            {
+                title: "Album 1",
+                artist: "Sampa The Psalmist",
+                image: "pics/5.jpg",
+                songs: [
+                    {
+                        title: "Amalumbo",
+                        artist: "Sampa The Psalmist",
+                        image: "pics/1.png",
+                        audio: "music/1.mp3",
+                    },
+                    {
+                        title: "Mulenjibukisha",
+                        artist: "Sampa The Psalmist",
+                        image: "pics/2.png",
+                        audio: "music/2.mp3",
+                    },
+                    {
+                        title: "Jah",
+                        artist: "Sampa The Psalmist",
+                        image: "pics/3.jpg",
+                        audio: "music/3.mp3",
+                    },
+                    {
+                        title: "Redemption",
+                        artist: "Sampa The Psalmist",
+                        image: "pics/4.jpg",
+                        audio: "music/4.mp3",
+                    },
+                ],
+            },
+            // ... other albums ...
+        ];
+
+        const justUpdated = [
+            {
+                title: "Amalumbo",
+                image: "pics/3.jpg",
+                subtitle: "PRS Music",
+                audio: "music/1.mp3",
+            },
+            {
+                title: "Redemption",
+                image: "pics/3.jpg",
+                subtitle: "PRS Music",
+                audio: "music/4.mp3",
+            },
+            {
+                title: "Jah",
+                image: "pics/4.jpg",
+                subtitle: "PRS Music",
+                audio: "music/3.mp3",
+            },
+        ];
+
+        const singles = [
+            {
+                title: "Amalumbo",
+                artist: "Sampa The Psalmist",
+                image: "pics/4.jpg",
+                audio: "music/1.mp3",
+            },
+            {
+                title: "Mulenjibukisha",
+                artist: "Sampa The Psalmist",
+                image: "pics/3.jpg",
+                audio: "music/2.mp3",
+            },
+            {
+                title: "Jah",
+                artist: "Sampa The Psalmist",
+                image: "pics/1.png",
+                audio: "music/3.mp3",
+            },
+            {
+                title: "Redemption",
+                artist: "Sampa The Psalmist",
+                image: "pics/5.jpg",
+                audio: "music/4.mp3",
+            },
+            {
+                title: "Mulenjibukisha",
+                artist: "Sampa The Psalmist",
+                image: "pics/2.png",
+                audio: "music/2.mp3",
+            },
+            {
+                title: "Jah",
+                artist: "Sampa The Psalmist",
+                image: "pics/3.jpg",
+                audio: "music/3.mp3",
+            },
+            {
+                title: "Redemption",
+                artist: "Sampa The Psalmist",
+                image: "pics/5.jpg",
+                audio: "music/4.mp3",
+            },
+            {
+                title: "Amalumbo",
+                artist: "Sampa The Psalmist",
+                image: "pics/1.png",
+                audio: "music/1.mp3",
+            },
+            {
+                title: "Jah",
+                artist: "Sampa The Psalmist",
+                image: "pics/3.jpg",
+                audio: "music/3.mp3",
+            },
+            {
+                title: "Redemption",
+                artist: "Sampa The Psalmist",
+                image: "pics/4.jpg",
+                audio: "music/4.mp3",
+            },
+        ];
+
+        let currentAudio = null;
+        let isPlaying = false;
+        let currentPlaylist = [];
+        let currentTrackIndex = 0;
+        let allSongs = [];
+        let currentSongIndex = 0;
+        let isDragging = false;
+
+        // DOM elements
+        const playPauseBtn = document.getElementById("playPause");
+        const nextTrackBtn = document.getElementById("nextTrack");
+        const volumeBtn = document.getElementById("volume");
+        const progressBar = document.querySelector(".progress-bar");
+        const progress = document.querySelector(".progress");
+        const albumArt = document.getElementById("albumArt");
+        const songTitle = document.getElementById("songTitle");
+        const songArtist = document.getElementById("songArtist");
+        const themeToggle = document.getElementById("themeToggle");
+        const volumeControl = document.getElementById("volumeControl");
+        const volumeSlider = document.getElementById("volumeSlider");
+
+        function playSong(song, playlist) {
+            if (currentAudio) {
+                currentAudio.pause();
+            }
+
+            currentAudio = new Audio(song.audio);
+            currentAudio.play();
+            isPlaying = true;
+            updatePlayPauseButton();
+
+            albumArt.src = song.image;
+            songTitle.textContent = song.title;
+            songArtist.textContent = song.artist;
+
+            currentAudio.addEventListener("timeupdate", updateProgress);
+            currentAudio.addEventListener("ended", playNextTrack);
+
+            // Update current playlist and track index
+            currentPlaylist = playlist;
+            currentTrackIndex = currentPlaylist.findIndex(track => track.title === song.title);
+        }
+
+        function playNextTrack() {
+            currentTrackIndex = (currentTrackIndex + 1) % currentPlaylist.length;
+            playSong(currentPlaylist[currentTrackIndex], currentPlaylist);
+        }
+
+        function populateCarousel(id, items) {
+            const carousel = document.getElementById(id);
+            carousel.innerHTML = ''; // Clear existing items
+            items.forEach((item) => {
+                const div = document.createElement("div");
+                div.className = "carousel-item";
+                div.innerHTML = `
+            <img src="${item.image}" alt="${item.title}">
+            <div class="title">${item.title}</div>
+            <div class="subtitle">${item.artist || item.subtitle}</div>
+        `;
+                carousel.appendChild(div);
+
+                div.addEventListener("click", () => {
+                    if (id === "newReleases") {
+                        showAlbumModal(item);
+                    } else if (item.audio) {
+                        playSong(item, items); // Pass the entire playlist
+                    }
+                });
+            });
+        }
+
+        // Update the nextTrackBtn event listener
+        nextTrackBtn.addEventListener("click", playNextTrack);
+
+
+        function rotateHeroSlides() {
+            const slides = document.querySelectorAll('.hero-slide');
+            let currentSlide = 0;
+
+            setInterval(() => {
+                slides[currentSlide].classList.remove('active');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('active');
+            }, 5000); // Change slide every 5 seconds
+        }
+
+        function populateCarousel(id, items) {
+            const carousel = document.getElementById(id);
+            items.forEach((item) => {
+                const div = document.createElement("div");
+                div.className = "carousel-item";
+                div.innerHTML = `
+            <img src="${item.image}" alt="${item.title}">
+            <div class="title">${item.title}</div>
+            <div class="subtitle">${item.artist || item.subtitle}</div>
+        `;
+                carousel.appendChild(div);
+
+                div.addEventListener("click", () => {
+                    if (id === "newReleases") {
+                        showAlbumModal(item);
+                    } else if (item.audio) {
+                        playSong(item);
+                    }
+                });
+            });
+        }
+
+        function showAlbumModal(album) {
+            const modal = document.getElementById("albumModal");
+            const modalTitle = document.getElementById("modalTitle");
+            const modalSongList = document.getElementById("modalSongList");
+
+            modalTitle.textContent = `${album.title} - ${album.artist}`;
+            modalSongList.innerHTML = "";
+
+            album.songs.forEach((song, index) => {
+                const li = document.createElement("li");
+                li.textContent = `${index + 1}. ${song.title}`;
+                li.addEventListener("click", () => playSong(song));
+                modalSongList.appendChild(li);
+            });
+
+            modal.style.display = "block";
+        }
+
+        function playSong(song) {
+            if (currentAudio) {
+                currentAudio.pause();
+            }
+
+            currentAudio = new Audio(song.audio);
+            currentAudio.play();
+            isPlaying = true;
+            updatePlayPauseButton();
+
+            albumArt.src = song.image;
+            songTitle.textContent = song.title;
+            songArtist.textContent = song.artist;
+
+            currentAudio.addEventListener("timeupdate", updateProgress);
+            currentAudio.addEventListener("ended", playNextTrack);
+        }
+
+        function updatePlayPauseButton() {
+            playPauseBtn.innerHTML = isPlaying ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-play"></i>';
+        }
+
+        function updateProgress() {
+            if (currentAudio && !isDragging) {
+                const percent = (currentAudio.currentTime / currentAudio.duration) * 100;
+                progress.style.width = `${percent}%`;
+            }
+        }
+
+        function playNextTrack() {
+            currentSongIndex = (currentSongIndex + 1) % allSongs.length;
+            playSong(allSongs[currentSongIndex]);
+        }
+
+        function getAllSongs() {
+            const genreSongs = Array.from(document.querySelectorAll('.genre-playlist li')).map(li => ({
+                title: li.querySelector('span').textContent,
+                artist: "Various Artists",
+                image: li.querySelector('img').src,
+                audio: `music/${Math.floor(Math.random() * 18)}.mp3` // Random audio file
+            }));
+            return [...featuredPlaylists, ...trendingSongs, ...newReleases.flatMap(album => album.songs), ...justUpdated, ...genreSongs];
+        }
+
+
+
+        function getImageUrl(index, formats = ['webp', 'jpg', 'png']) {
+            return new Promise((resolve, reject) => {
+                const tryFormat = (formatIndex) => {
+                    if (formatIndex >= formats.length) {
+                        reject(new Error('No supported image format found'));
+                        return;
+                    }
+
+                    const img = new Image();
+                    const format = formats[formatIndex];
+                    img.src = `pics/${index}.${format}`;
+
+                    img.onload = () => resolve(img.src);
+                    img.onerror = () => tryFormat(formatIndex + 1);
+                };
+
+                tryFormat(0);
+            });
+        }
+
+
+
+        function populateSingles() {
+            const singlesContainer = document.getElementById('singles');
+            singles.forEach(single => {
+                const singleElement = document.createElement('div');
+                singleElement.className = 'carousel-item';
+                singleElement.innerHTML = `
+      <img src="${single.cover}" alt="${single.title}">
+      <div class="song-title">${single.title}</div>
+      <div class="song-artist">${single.artist}</div>
+    `;
+                singlesContainer.appendChild(singleElement);
+            });
+        }
+
+        // Event Listeners
+        playPauseBtn.addEventListener("click", () => {
+            if (currentAudio) {
+                if (isPlaying) {
+                    currentAudio.pause();
+                } else {
+                    currentAudio.play();
+                }
+                isPlaying = !isPlaying;
+                updatePlayPauseButton();
+            }
+        });
+
+        nextTrackBtn.addEventListener("click", playNextTrack);
+
+        progressBar.addEventListener("click", (e) => {
+            if (currentAudio) {
+                const percent = e.offsetX / progressBar.offsetWidth;
+                currentAudio.currentTime = percent * currentAudio.duration;
+                updateProgress();
+            }
+        });
+
+        themeToggle.addEventListener("click", () => {
+            document.body.classList.toggle("light-mode");
+            themeToggle.innerHTML = document.body.classList.contains("light-mode") ?
+                '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
+        });
+
+        volumeBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            volumeControl.style.display = volumeControl.style.display === "block" ? "none" : "block";
+        });
+
+        volumeSlider.addEventListener("input", () => {
+            if (currentAudio) {
+                currentAudio.volume = volumeSlider.value;
+            }
+        });
+
+        document.addEventListener("click", () => {
+            volumeControl.style.display = "none";
+        });
+
+        volumeControl.addEventListener("click", (e) => {
+            e.stopPropagation();
+        });
+
+        progressBar.addEventListener("mousedown", () => {
+            isDragging = true;
+        });
+
+        document.addEventListener("mousemove", (e) => {
+            if (isDragging && currentAudio) {
+                const percent = (e.clientX - progressBar.getBoundingClientRect().left) / progressBar.offsetWidth;
+                currentAudio.currentTime = percent * currentAudio.duration;
+                updateProgress();
+            }
+        });
+
+        document.addEventListener("mouseup", () => {
+            isDragging = false;
+        });
+
+        // Close modal when clicking outside or on the close button
+        window.addEventListener("click", (e) => {
+            const modal = document.getElementById("albumModal");
+            if (e.target === modal || e.target.classList.contains("close")) {
+                modal.style.display = "none";
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            rotateHeroSlides();
+            populateCarousel("singles", singles);
+            populateCarousel("featuredPlaylists", featuredPlaylists);
+            populateCarousel("trendingSongs", trendingSongs);
+            populateCarousel("newReleases", newReleases);
+            populateCarousel("justUpdated", justUpdated);
+
+
+
+            // Set initial playlist and update all songs array
+            currentPlaylist = trendingSongs;
+            allSongs = getAllSongs();
+        });
+    </script>
+</body>
+
+</html>

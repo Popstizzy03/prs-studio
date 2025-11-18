@@ -155,4 +155,17 @@ import '../../css/style.css'
             text-transform: uppercase;
             letter-spacing: 1px;
         }
+        @media (max-width: 1024px) {
+            .about-content,
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
 </style>

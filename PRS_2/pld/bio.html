@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Autobiography</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            background-color: #000;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navbar styles */
+        .navbar {
+            background-color: rgba(0, 0, 0, 0.8);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 10px 0;
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style-type: none;
+        }
+
+        .nav-links li {
+            margin-left: 20px;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        /* Hero styles */
+        .hero {
+            background-image: url('/api/placeholder/1200/600');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        /* Autobiography list styles */
+        .autobiography {
+            padding: 80px 0;
+            background-color: #1c1c1e;
+        }
+
+        .autobiography h2 {
+            font-size: 36px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .timeline {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .timeline-item {
+            flex-basis: calc(33.333% - 20px);
+            margin-bottom: 40px;
+            background-color: #2c2c2e;
+            border-radius: 10px;
+            padding: 20px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .timeline-item h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .timeline-item p {
+            font-size: 14px;
+        }
+
+        /* Pop-up styles */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .popup-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .popup-content {
+            background-color: #1c1c1e;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 800px;
+            height: 80%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            color: #fff;
+            cursor: pointer;
+            z-index: 2001;
+        }
+
+        .popup-slider {
+            height: 100%;
+        }
+
+        .popup-slide {
+            height: 100%;
+            overflow-y: auto;
+            padding: 40px;
+        }
+
+        .popup-slide h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .popup-slide p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .popup-slide img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        /* Info carousel styles */
+        .info-carousel {
+            padding: 80px 0;
+        }
+
+        .info-carousel h2 {
+            font-size: 36px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .info-slide {
+            background-color: #2c2c2e;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 0 10px;
+        }
+
+        .info-slide h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .info-slide p {
+            font-size: 14px;
+        }
+
+        /* Footer styles */
+        .footer {
+            background-color: #1c1c1e;
+            padding: 40px 0;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .footer-section {
+            flex: 1;
+            margin-right: 40px;
+        }
+
+        .footer-section h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .footer-section ul {
+            list-style-type: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul li a {
+            color: #999;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .footer-section ul li a:hover {
+            color: #fff;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .timeline-item {
+                flex-basis: calc(50% - 20px);
+            }
+
+            .footer-content {
+                flex-direction: column;
+            }
+
+            .footer-section {
+                margin-right: 0;
+                margin-bottom: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .timeline-item {
+                flex-basis: 100%;
+            }
+        }
+
+        .more-to-explore {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            padding: 1rem;
+            background-color: #1c1c1c;
+            border-radius: 10px;
+        }
+
+        .more-to-explore h2 {
+            width: 100%;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .explore-item {
+            flex: 1 0 calc(33.333% - 1rem);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            background-color: #2a2a2a;
+            border-radius: 8px;
+            color: #ff3b30;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            height: 50px;
+            /* Fixed height */
+            box-sizing: border-box;
+            /* Include padding in height calculation */
+        }
+
+        .explore-item:hover {
+            background-color: #3a3a3a;
+            transform: translateY(-5px);
+        }
+
+        .explore-item::after {
+            content: '>';
+            color: #ff3b30;
+        }
+
+        @media (max-width: 768px) {
+            .explore-item {
+                flex: 1 0 calc(50% - 1rem);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .explore-item {
+                flex: 1 0 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">My Story</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#timeline">Timeline</a></li>
+                <li><a href="#info">Info</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>My Autobiography</h1>
+            <p>A journey through time and experiences</p>
+        </div>
+    </section>
+
+    <section id="timeline" class="autobiography">
+        <div class="container">
+            <h2>Life Timeline</h2>
+            <div class="timeline">
+                <div class="timeline-item" data-index="0">
+                    <h3>Early Childhood</h3>
+                    <p>The beginning of my journey...</p>
+                </div>
+                <div class="timeline-item" data-index="1">
+                    <h3>School Years</h3>
+                    <p>Learning and growing...</p>
+                </div>
+                <div class="timeline-item" data-index="2">
+                    <h3>College Life</h3>
+                    <p>Discovering my passions...</p>
+                </div>
+                <div class="timeline-item" data-index="3">
+                    <h3>Career Beginnings</h3>
+                    <p>Taking the first steps...</p>
+                </div>
+                <div class="timeline-item" data-index="4">
+                    <h3>Major Milestones</h3>
+                    <p>Achievements and challenges...</p>
+                </div>
+                <div class="timeline-item" data-index="5">
+                    <h3>Present Day</h3>
+                    <p>Where I am now...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="popup-overlay">
+        <div class="popup-content">
+            <span class="popup-close">&times;</span>
+            <div class="popup-slider">
+                <div class="popup-slide">
+                    <h3>Early Childhood</h3>
+                    <p>I was born in a small town... [More detailed content about early childhood]</p>
+                    <img src="pics/3.jpg" alt="Childhood photo">
+                    <p>My earliest memories include... [Continue with more content]</p>
+                </div>
+                <div class="popup-slide">
+                    <h3>School Years</h3>
+                    <p>My school years were filled with... [More detailed content about school years]</p>
+                    <img src="pics/5.jpg" alt="School photo">
+                    <p>During this time, I discovered my passion for... [Continue with more content]</p>
+                </div>
+                <div class="popup-slide">
+                    <h3>College Life</h3>
+                    <p>College was a transformative experience... [More detailed content about college life]</p>
+                    <img src="pics/2.webp" alt="College photo">
+                    <p>I majored in... and participated in... [Continue with more content]</p>
+                </div>
+                <div class="popup-slide">
+                    <h3>Career Beginnings</h3>
+                    <p>After graduation, I started my career as... [More detailjdjfjdkcjjddjkdcndnxjdkxncjcjdkskeiyejwnsjdnfkckdnxjdjxjdnckxnxuxbxjdchbdnxjdjxed content about career beginningsAfter graduation, I started my career as... [More detailjdjfjdkcjjddjkdcndnxjdkxncjcjdkskeiyejAfter graduation, I started my career as... [More detailjdjfjdkcjjddjkdcndnxjdkxncjcjdkskeiyejAfter graduation, I started my career as... [More detailjdjfjdkcjjddjkdcndnxjdkxncjcjdkskeiyejAfter graduation, I started my career as... [More detailjdjfjdkcjjddjkdcndnxjdkxncjcjdkskeiyejAfter graduation, I started my career as... [More detailjdjfjdkcjjddjkdcndnxjdkxncjcjdkskeiyejAfter graduation, I started my career as... [More detailjdjfjdkcjjddjkdcndnxjdkxncjcjdkskeiyejAfter graduation, I started my career as... [More detailjdjfjdkcjjddjkdcndnxjdkxncjcjdkskeiyejAfter graduation, I started my career as... [More detailjdjfjdkcjjddjkdcndnxjdkxncjcjdkskeiyej]</p>
+                    <img src="pics/3.webp" alt="First job photo">
+                    <p>My first job taught me... [Continue with more content]</p>
+                </div>
+                <div class="popup-slide">
+                    <h3>Major Milestones</h3>
+                    <p>Throughout my career, I've achieved... [More detailed content about major milestones]</p>
+                    <img src="pics/4.webp" alt="Achievement photo">
+                    <p>Some of my proudest moments include... [Continue with more content]</p>
+                </div>
+                <div class="popup-slide">
+                    <h3>Present Day</h3>
+                    <p>Today, I'm working on... [More detailed content about present day]</p>
+                    <img src="pics/3.jpg" alt="Current photo">
+                    <p>My goals for the future include... [Continue with more content]</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section id="info" class="info-carousel">
+        <div class="container">
+            <h2>Quick Facts</h2>
+            <div class="info-slider">
+                <div class="info-slide">
+                    <h3>Favorite Books</h3>
+                    <p>1. To Kill a Mockingbird<br>2. 1984<br>3. The Great Gatsby</p>
+                </div>
+                <div class="info-slide">
+                    <h3>Hobbies</h3>
+                    <p>1. Photography<br>2. Hiking<br>3. Cooking</p>
+                </div>
+                <div class="info-slide">
+                    <h3>Travel Bucket List</h3>
+                    <p>1. Machu Picchu, Peru<br>2. Santorini, Greece<br>3. Tokyo, Japan</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="more-to-explore">
+        <h2>More to Explore</h2>
+        <a href="home.html" class="explore-item">Home</a>
+        <a href="bio.html" class="explore-item">Autobiography</a>
+        <a href="shop.html" class="explore-item">Shop</a>
+        <a href="Index12.html" class="explore-item">Music</a>
+        <a href="#concerts" class="explore-item">Concerts</a>
+        <a href="#moods" class="explore-item">Moods and Activities</a>
+    </div>
+
+    <footer id="contact" class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li><a href="mailto:example@email.com">Email</a></li>
+                        <li><a href="#">LinkedIn</a></li>
+                        <li><a href="#">Twitter</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#timeline">Timeline</a></li>
+                        <li><a href="#info">Info</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Use</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Initialize info carousel
+            $('.info-slider').slick({
+                dots: true,
+                infinite: true,
+                speed: 500,
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                                responsive: [
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            slidesToShow: 2,
+                            slidesToScroll: 1
+                        }
+                    },
+                    {
+                        breakpoint: 480,
+                        settings: {
+                            slidesToShow: 1,
+                            slidesToScroll: 1
+                        }
+                    }
+                ]
+            });
+
+            // Popup functionality
+            $('.timeline-item').on('click', function() {
+                var index = $(this).data('index');
+                $('.popup-slider').slick('slickGoTo', index);
+                $('.popup-overlay').addClass('active');
+            });
+
+            $('.popup-close, .popup-overlay').on('click', function() {
+                $('.popup-overlay').removeClass('active');
+            });
+
+            // Prevent closing popup when clicking inside content
+            $('.popup-content').on('click', function(event) {
+                event.stopPropagation();
+            });
+
+            // Initialize popup slider
+            $('.popup-slider').slick({
+                dots: false,
+                infinite: false,
+                arrows: false,
+                speed: 500,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                adaptiveHeight: true
+            });
+        });
+    </script>
+</body>
+</html>
