@@ -5,7 +5,7 @@
         <div class="controls-container">
             <!-- Track Info -->
             <div class="track-info">
-                <img id="albumArt" src="pics/null.jpg" alt="Album Art" class="album-art">
+                <img id="albumArt" src="/pics/null.jpg" alt="Album Art" class="album-art">
                 <div class="song-details">
                     <div class="song-title" id="songTitle">Select a track to play</div>
                     <div class="song-artist" id="songArtist">PR-Studios</div>
@@ -273,17 +273,16 @@
             volumeSlider: document.getElementById('volumeSlider'),
             volumeBtn: document.getElementById('volumeBtn'),
             shuffleControl: document.getElementById('shuffleControl'),
-            shuffleBtn: document.getElementById('shuffleBtn'),
+            // shuffleBtn: document.getElementById('shuffleBtn'), // This id does not exist in the HTML
             repeatControl: document.getElementById('repeatControl'),
-            repeatBtn: document.getElementById('repeatBtn'),
-            themeToggle: document.getElementById('themeToggle'),
-            searchInput: document.getElementById('searchInput'),
+            // repeatBtn: document.getElementById('repeatBtn'), // This id does not exist in the HTML
+            // themeToggle: document.getElementById('themeToggle'), // This id does not exist in the HTML
             favoriteBtn: document.getElementById('favoriteBtn'),
             playlistBtn: document.getElementById('playlistBtn'),
-            modal: document.getElementById('playlistModal'),
-            modalClose: document.getElementById('modalClose'),
-            modalSongList: document.getElementById('modalSongList'),
-            modalTitle: document.getElementById('modalTitle')
+            // modal: document.getElementById('playlistModal'), // This id does not exist in this component
+            // modalClose: document.getElementById('modalClose'), // This id does not exist in this component
+            // modalSongList: document.getElementById('modalSongList'), // This id does not exist in this component
+            // modalTitle: document.getElementById('modalTitle') // This id does not exist in this component
         };
 
         // Initialize App
@@ -298,6 +297,8 @@
             
             // Initialize volume
             elements.volumeSlider.value = currentVolume;
+             // Set default image to be root-relative
+            elements.albumArt.src = '/pics/null.jpg';
         }
 
         function setupEventListeners() {
@@ -315,17 +316,24 @@
             
             // Playlist controls
             elements.shuffleControl.addEventListener('click', toggleShuffle);
-            elements.shuffleBtn.addEventListener('click', toggleShuffle);
+            // elements.shuffleBtn.addEventListener('click', toggleShuffle);
             elements.repeatControl.addEventListener('click', toggleRepeat);
-            elements.repeatBtn.addEventListener('click', toggleRepeat);
+            // elements.repeatBtn.addEventListener('click', toggleRepeat);
             
             // UI controls
-            elements.themeToggle.addEventListener('click', toggleTheme);
+            // elements.themeToggle.addEventListener('click', toggleTheme);
             elements.favoriteBtn.addEventListener('click', toggleFavorite);
-            elements.playlistBtn.addEventListener('click', showPlaylist);
+            elements.playlistBtn.addEventListener('click', () => {
+                // Dispatch a custom event to show the playlist modal
+                document.dispatchEvent(new CustomEvent('show-playlist-modal'));
+            });
             
-            // Search functionality
-            elements.searchInput.addEventListener('input', handleSearch);
+            // Listen for custom track selection event from MainContent.astro
+            document.addEventListener('track-selected', (event) => {
+                const { track, playlist } = event.detail;
+                playTrack(track, playlist);
+                console.log('Track selected from MainContent:', track.title);
+            });
         }
 
         function playTrack(track, playlist = null) {
@@ -340,7 +348,10 @@
             
             if (playlist) {
                 currentPlaylist = playlist;
-                currentTrackIndex = playlist.findIndex(t => t.title === track.title);
+                currentTrackIndex = playlist.findIndex(t => t.audio === track.audio);
+            } else {
+                currentPlaylist = [track]; // If single track, make it a playlist of one
+                currentTrackIndex = 0;
             }
             
             // Update UI
@@ -365,7 +376,7 @@
         }
 
         function togglePlayPause() {
-            if (!currentAudio) return;
+            if (!currentAudio) return; // No track loaded yet
             
             if (isPlaying) {
                 currentAudio.pause();
@@ -389,7 +400,11 @@
             if (currentPlaylist.length === 0) return;
             
             if (isShuffled) {
-                currentTrackIndex = Math.floor(Math.random() * currentPlaylist.length);
+                let newIndex;
+                do {
+                    newIndex = Math.floor(Math.random() * currentPlaylist.length);
+                } while (newIndex === currentTrackIndex && currentPlaylist.length > 1); // Avoid playing same song twice in a row if shuffled and more than one song
+                currentTrackIndex = newIndex;
             } else {
                 currentTrackIndex = (currentTrackIndex + 1) % currentPlaylist.length;
             }
@@ -401,7 +416,11 @@
             if (currentPlaylist.length === 0) return;
             
             if (isShuffled) {
-                currentTrackIndex = Math.floor(Math.random() * currentPlaylist.length);
+                let newIndex;
+                do {
+                    newIndex = Math.floor(Math.random() * currentPlaylist.length);
+                } while (newIndex === currentTrackIndex && currentPlaylist.length > 1); // Avoid playing same song twice in a row if shuffled and more than one song
+                currentTrackIndex = newIndex;
             } else {
                 currentTrackIndex = currentTrackIndex === 0 ? currentPlaylist.length - 1 : currentTrackIndex - 1;
             }
@@ -419,11 +438,18 @@
                 // End of playlist
                 isPlaying = false;
                 updatePlayPauseButton();
+                // Optionally reset UI to default "Select a track to play"
+                elements.albumArt.src = '/pics/null.jpg';
+                elements.songTitle.textContent = 'Select a track to play';
+                elements.songArtist.textContent = 'PR-Studios';
+                elements.currentTime.textContent = '0:00';
+                elements.totalTime.textContent = '0:00';
+                elements.progress.style.width = '0%';
             }
         }
 
         function updateProgress() {
-            if (!currentAudio) return;
+            if (!currentAudio || isNaN(currentAudio.duration)) return; // Ensure duration is a number
             
             const progress = (currentAudio.currentTime / currentAudio.duration) * 100;
             elements.progress.style.width = `${progress}%`;
@@ -431,7 +457,7 @@
         }
 
         function seekTrack(e) {
-            if (!currentAudio) return;
+            if (!currentAudio || isNaN(currentAudio.duration)) return;
             
             const rect = elements.progressBar.getBoundingClientRect();
             const percent = (e.clientX - rect.left) / rect.width;
@@ -439,9 +465,10 @@
         }
 
         function updateVolume() {
-            currentVolume = elements.volumeSlider.value;
+            currentVolume = parseFloat(elements.volumeSlider.value); // Ensure it's a float
             if (currentAudio) {
                 currentAudio.volume = currentVolume;
+                isMuted = currentVolume === 0; // Update mute state based on slider
             }
             
             updateVolumeIcon();
@@ -449,8 +476,8 @@
 
         function toggleMute() {
             if (isMuted) {
-                elements.volumeSlider.value = currentVolume;
-                if (currentAudio) currentAudio.volume = currentVolume;
+                elements.volumeSlider.value = currentVolume === 0 ? 1 : currentVolume; // Restore to prev volume or full if prev was 0
+                if (currentAudio) currentAudio.volume = elements.volumeSlider.value;
                 isMuted = false;
             } else {
                 elements.volumeSlider.value = 0;
@@ -477,20 +504,24 @@
         function toggleShuffle() {
             isShuffled = !isShuffled;
             elements.shuffleControl.classList.toggle('active', isShuffled);
-            elements.shuffleBtn.classList.toggle('active', isShuffled);
+            // console.log('Shuffle toggled:', isShuffled);
         }
 
         function toggleRepeat() {
             repeatMode = (repeatMode + 1) % 3;
             
             const repeatIcons = ['fas fa-redo', 'fas fa-redo', 'fas fa-redo-alt'];
-            const repeatClasses = ['', 'active', 'active'];
+            const repeatClasses = ['', 'active', 'active']; // No 'active' for repeatMode 0
             
             elements.repeatControl.querySelector('i').className = repeatIcons[repeatMode];
-            elements.repeatBtn.querySelector('i').className = repeatIcons[repeatMode];
-            
-            elements.repeatControl.className = `control-btn ${repeatClasses[repeatMode]}`;
-            elements.repeatBtn.className = `control-button ${repeatClasses[repeatMode]}`;
+            elements.repeatControl.classList.remove('active', 'fas', 'fa-redo', 'fa-redo-alt'); // Clean up old classes
+            if (repeatMode === 1) {
+                 elements.repeatControl.classList.add('active', 'fas', 'fa-redo');
+            } else if (repeatMode === 2) {
+                 elements.repeatControl.classList.add('active', 'fas', 'fa-redo-alt');
+            } else {
+                elements.repeatControl.classList.add('fas', 'fa-redo');
+            }
         }
 
         function toggleTheme() {
@@ -503,47 +534,6 @@
             const icon = elements.favoriteBtn.querySelector('i');
             icon.classList.toggle('fas');
             icon.classList.toggle('far');
-        }
-
-        function showPlaylist() {
-            if (currentPlaylist.length === 0) return;
-            
-            elements.modalTitle.textContent = 'Current Playlist';
-            elements.modalSongList.innerHTML = '';
-            
-            currentPlaylist.forEach((song, index) => {
-                const li = document.createElement('li');
-                li.className = 'song-item';
-                li.innerHTML = `
-                    <img src="${song.image}" alt="${song.title}">
-                    <div class="song-item-info">
-                        <div class="song-item-title">${song.title}</div>
-                        <div class="song-item-artist">${song.artist}</div>
-                    </div>
-                    ${song.duration ? `<span class="song-duration">${song.duration}</span>` : ''}
-                `;
-                
-                if (index === currentTrackIndex) {
-                    li.classList.add('playing');
-                }
-                
-                li.addEventListener('click', () => {
-                    currentTrackIndex = index;
-                    playTrack(song);
-                    closeModal();
-                });
-                
-                elements.modalSongList.appendChild(li);
-            });
-            
-            elements.modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function handleSearch() {
-            const query = elements.searchInput.value.toLowerCase();
-            // Implement search functionality here
-            console.log('Searching for:', query);
         }
 
         function formatTime(seconds) {

@@ -304,7 +304,7 @@
                     title: "Amalumbo",
                     artist: "Sampa The Psalmist",
                     image: "pics/1.png",
-                    audio: "music/1.mp3",
+                    audio: "/music/1.mp3",
                     duration: "3:45",
                     genre: "hip-hop"
                 },
@@ -312,7 +312,7 @@
                     title: "Jah",
                     artist: "Sampa The Psalmist",
                     image: "pics/2.png",
-                    audio: "music/3.mp3",
+                    audio: "/music/3.mp3",
                     duration: "4:12",
                     genre: "hip-hop"
                 },
@@ -320,7 +320,7 @@
                     title: "Mulenjibukisha",
                     artist: "Sampa The Psalmist",
                     image: "pics/3.jpg",
-                    audio: "music/2.mp3",
+                    audio: "/music/2.mp3",
                     duration: "3:28",
                     genre: "hip-hop"
                 },
@@ -328,7 +328,7 @@
                     title: "Redemption",
                     artist: "Sampa The Psalmist",
                     image: "pics/4.jpg",
-                    audio: "music/4.mp3",
+                    audio: "/music/4.mp3",
                     duration: "4:01",
                     genre: "hip-hop"
                 }
@@ -338,7 +338,7 @@
                     title: "Amalumbo",
                     artist: "Sampa The Psalmist",
                     image: "pics/4.jpg",
-                    audio: "music/1.mp3",
+                    audio: "/music/1.mp3",
                     duration: "3:45",
                     genre: "hip-hop"
                 },
@@ -346,7 +346,7 @@
                     title: "Mulenjibukisha",
                     artist: "Sampa The Psalmist",
                     image: "pics/3.jpg",
-                    audio: "music/2.mp3",
+                    audio: "/music/2.mp3",
                     duration: "3:28",
                     genre: "hip-hop"
                 },
@@ -354,7 +354,7 @@
                     title: "Jah",
                     artist: "Sampa The Psalmist",
                     image: "pics/1.png",
-                    audio: "music/3.mp3",
+                    audio: "/music/3.mp3",
                     duration: "4:12",
                     genre: "hip-hop"
                 },
@@ -362,7 +362,7 @@
                     title: "Redemption",
                     artist: "Sampa The Psalmist",
                     image: "pics/5.jpg",
-                    audio: "music/4.mp3",
+                    audio: "/music/4.mp3",
                     duration: "4:01",
                     genre: "hip-hop"
                 }
@@ -372,7 +372,7 @@
                     title: "Redemption",
                     artist: "Sampa The Psalmist",
                     image: "pics/2.png",
-                    audio: "music/4.mp3",
+                    audio: "/music/4.mp3",
                     duration: "4:01",
                     genre: "hip-hop"
                 },
@@ -380,7 +380,7 @@
                     title: "Jah",
                     artist: "Sampa The Psalmist",
                     image: "pics/1.png",
-                    audio: "music/3.mp3",
+                    audio: "/music/3.mp3",
                     duration: "4:12",
                     genre: "hip-hop"
                 },
@@ -388,7 +388,7 @@
                     title: "Mulenjibukisha",
                     artist: "Sampa The Psalmist",
                     image: "pics/5.jpg",
-                    audio: "music/2.mp3",
+                    audio: "/music/2.mp3",
                     duration: "3:28",
                     genre: "hip-hop"
                 }
@@ -404,7 +404,7 @@
                             title: "Amalumbo",
                             artist: "Sampa The Psalmist",
                             image: "pics/1.png",
-                            audio: "music/1.mp3",
+                            audio: "/music/1.mp3",
                             duration: "3:45",
                             genre: "hip-hop"
                         },
@@ -412,7 +412,7 @@
                             title: "Mulenjibukisha",
                             artist: "Sampa The Psalmist",
                             image: "pics/2.png",
-                            audio: "music/2.mp3",
+                            audio: "/music/2.mp3",
                             duration: "3:28",
                             genre: "hip-hop"
                         },
@@ -420,7 +420,7 @@
                             title: "Jah",
                             artist: "Sampa The Psalmist",
                             image: "pics/3.jpg",
-                            audio: "music/3.mp3",
+                            audio: "/music/3.mp3",
                             duration: "4:12",
                             genre: "hip-hop"
                         },
@@ -428,7 +428,7 @@
                             title: "Redemption",
                             artist: "Sampa The Psalmist",
                             image: "pics/4.jpg",
-                            audio: "music/4.mp3",
+                            audio: "/music/4.mp3",
                             duration: "4:01",
                             genre: "hip-hop"
                         }
@@ -447,7 +447,7 @@
                             title: "Amalumbo",
                             artist: "Sampa The Psalmist",
                             image: "pics/1.png",
-                            audio: "music/1.mp3",
+                            audio: "/music/1.mp3",
                             duration: "3:45",
                             genre: "hip-hop"
                         },
@@ -455,7 +455,7 @@
                             title: "Jah",
                             artist: "Sampa The Psalmist",
                             image: "pics/2.png",
-                            audio: "music/3.mp3",
+                            audio: "/music/3.mp3",
                             duration: "4:12",
                             genre: "hip-hop"
                         }
@@ -472,7 +472,7 @@
                             title: "Mulenjibukisha",
                             artist: "Sampa The Psalmist",
                             image: "pics/3.jpg",
-                            audio: "music/2.mp3",
+                            audio: "/music/2.mp3",
                             duration: "3:28",
                             genre: "hip-hop"
                         }
@@ -517,8 +517,22 @@
                 ${item.duration ? `<div class="subtitle">${item.duration}</div>` : ''}
             `;
             
-            div.addEventListener('click', function() {
-                // This will be handled by the global script
+            const playOverlay = div.querySelector('.play-overlay');
+            playOverlay.addEventListener('click', (event) => {
+                event.stopPropagation(); // Prevent carousel item click from firing
+                const trackData = { ...item }; // Clone the item data
+                if (trackData.songs && trackData.songs.length > 0) {
+                    // For albums/playlists, send the first song as the default or handle separately
+                    trackData.audio = trackData.songs[0].audio;
+                    // You might want to send the whole playlist for MusicControls to manage
+                    document.dispatchEvent(new CustomEvent('track-selected', {
+                        detail: { track: trackData.songs[0], playlist: trackData.songs }
+                    }));
+                } else {
+                    document.dispatchEvent(new CustomEvent('track-selected', {
+                        detail: { track: trackData, playlist: [trackData] } // If it's a single track, create a playlist of one
+                    }));
+                }
             });
             
             return div;
@@ -527,4 +541,5 @@
         document.addEventListener('DOMContentLoaded', function() {
             populateCarousels();
         });
+</script>
 </script>
