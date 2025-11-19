@@ -1,7 +1,7 @@
 ---
 
 ---
-
+<audio id="audioPlayer" src=""></audio>
     <!-- Enhanced Music Section -->
     <section id="music" class="section music-widgets">
         <div class="container">
@@ -17,7 +17,7 @@
                         <h3>Top Hits</h3>
                         <p>The hottest tracks dominating the charts right now</p>
                         <div class="widget-controls">
-                            <button class="play-btn" data-track="music/2.mp3">
+                            <button class="play-btn" data-track="/music/2.mp3">
                                 <i class="fas fa-play"></i>
                             </button>
                             <div class="widget-info">
@@ -33,7 +33,7 @@
                         <h3>Chill Vibes</h3>
                         <p>Smooth and relaxing tunes for your peaceful moments</p>
                         <div class="widget-controls">
-                            <button class="play-btn" data-track="music/1.mp3">
+                            <button class="play-btn" data-track="/music/1.mp3">
                                 <i class="fas fa-play"></i>
                             </button>
                             <div class="widget-info">
@@ -49,7 +49,7 @@
                         <h3>Workout Mix</h3>
                         <p>High-energy tracks to power through your fitness routine</p>
                         <div class="widget-controls">
-                            <button class="play-btn" data-track="music/3.mp3">
+                            <button class="play-btn" data-track="/music/3.mp3">
                                 <i class="fas fa-play"></i>
                             </button>
                             <div class="widget-info">
@@ -184,3 +184,55 @@
                 }
 
         </style>
+<script is:inline>
+  const audioPlayer = document.getElementById('audioPlayer');
+  const playButtons = document.querySelectorAll('.play-btn');
+  let currentlyPlayingButton = null;
+
+  playButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const track = button.dataset.track;
+      const icon = button.querySelector('i');
+
+      if (currentlyPlayingButton === button) {
+        // If the same button is clicked, toggle play/pause
+        if (audioPlayer.paused) {
+          audioPlayer.play();
+          icon.classList.remove('fa-play');
+          icon.classList.add('fa-pause');
+          console.log(`Resuming: ${track}`);
+        } else {
+          audioPlayer.pause();
+          icon.classList.remove('fa-pause');
+          icon.classList.add('fa-play');
+          console.log(`Pausing: ${track}`);
+        }
+      } else {
+        // If a different button is clicked, play the new track
+        if (currentlyPlayingButton) {
+          // Reset previous button's icon
+          const prevIcon = currentlyPlayingButton.querySelector('i');
+          prevIcon.classList.remove('fa-pause');
+          prevIcon.classList.add('fa-play');
+        }
+
+        audioPlayer.src = track;
+        audioPlayer.play();
+        icon.classList.remove('fa-play');
+        icon.classList.add('fa-pause');
+        currentlyPlayingButton = button;
+        console.log(`Playing: ${track}`);
+      }
+    });
+  });
+
+  audioPlayer.addEventListener('ended', () => {
+    if (currentlyPlayingButton) {
+      const icon = currentlyPlayingButton.querySelector('i');
+      icon.classList.remove('fa-pause');
+      icon.classList.add('fa-play');
+      console.log(`Ended: ${audioPlayer.src}`);
+      currentlyPlayingButton = null;
+    }
+  });
+</script>
