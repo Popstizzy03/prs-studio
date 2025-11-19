@@ -65,7 +65,7 @@
             right: 0;
             background: rgba(26, 26, 26, 0.95);
             backdrop-filter: blur(20px);
-            border-top: 1px solid var(--border-color);
+            border-top: 1px solid var(--border);
             padding: 1rem 2rem;
             z-index: 1000;
             transition: all 0.3s ease;
@@ -92,7 +92,7 @@
             height: 60px;
             border-radius: 10px;
             object-fit: cover;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            box-shadow: var(--shadow);
         }
 
         .song-details {
@@ -109,7 +109,7 @@
         }
 
         .song-artist {
-            color: var(--text-secondary);
+            color: var(--muted-foreground);
             font-size: 0.85rem;
             white-space: nowrap;
             overflow: hidden;
@@ -132,7 +132,7 @@
         .control-btn {
             background: none;
             border: none;
-            color: var(--text-primary);
+            color: var(--foreground);
             font-size: 1.2rem;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -145,7 +145,7 @@
         }
 
         .control-btn:hover {
-            background: var(--glass-bg);
+            background: var(--accent);
             transform: scale(1.1);
         }
 
@@ -171,7 +171,7 @@
 
         .time-label {
             font-size: 0.75rem;
-            color: var(--text-secondary);
+            color: var(--muted-foreground);
             min-width: 35px;
             text-align: center;
         }
@@ -179,7 +179,7 @@
         .progress-bar {
             flex: 1;
             height: 6px;
-            background: var(--border-color);
+            background: var(--border);
             border-radius: 3px;
             cursor: pointer;
             overflow: hidden;
@@ -222,7 +222,7 @@
         .volume-btn {
             background: none;
             border: none;
-            color: var(--text-primary);
+            color: var(--foreground);
             font-size: 1.2rem;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -231,7 +231,7 @@
         .volume-slider {
             width: 100px;
             height: 4px;
-            background: var(--border-color);
+            background: var(--border);
             border-radius: 2px;
             outline: none;
             -webkit-appearance: none;
@@ -242,7 +242,7 @@
             -webkit-appearance: none;
             width: 16px;
             height: 16px;
-            background: var(--primary-color);
+            background: var(--primary);
             border-radius: 50%;
             cursor: pointer;
         }

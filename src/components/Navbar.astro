@@ -31,7 +31,7 @@
         right: 0;
         background: rgba(10, 10, 10, 0.95);
         backdrop-filter: blur(20px);
-        border-bottom: 1px solid var(--border-color);
+        border-bottom: 1px solid var(--border);
         z-index: 1000;
         transition: all 0.3s ease;
     }
@@ -73,7 +73,7 @@
     }
 
     .nav-links a {
-        color: var(--text-secondary);
+        color: var(--muted-foreground);
         text-decoration: none;
         font-weight: 500;
         transition: all 0.3s ease;
@@ -83,7 +83,7 @@
 
     .nav-links a:hover,
     .nav-links a.active {
-        color: var(--primary-color);
+        color: var(--primary);
     }
 
     .nav-links a::after {
@@ -110,9 +110,9 @@
 
     .search-btn,
     .theme-toggle {
-        background: var(--glass-bg);
-        border: 1px solid var(--border-color);
-        color: var(--text-primary);
+        background: var(--accent);
+        border: 1px solid var(--border);
+        color: var(--foreground);
         border-radius: 50%;
         width: 45px;
         height: 45px;
@@ -125,8 +125,8 @@
 
     .search-btn:hover,
     .theme-toggle:hover {
-        background: var(--primary-color);
-        border-color: var(--primary-color);
+        background: var(--primary);
+        border-color: var(--primary);
         box-shadow: var(--hover-glow);
         transform: translateY(-2px);
     }
@@ -135,7 +135,7 @@
         display: none;
         background: none;
         border: none;
-        color: var(--text-primary);
+        color: var(--foreground);
         font-size: 1.5rem;
         cursor: pointer;
     }
@@ -206,12 +206,11 @@
 
     // Theme toggle functionality
     if (themeToggle) {
-        let isDarkMode = true;
         themeToggle.addEventListener('click', () => {
-            isDarkMode = !isDarkMode;
-            document.body.classList.toggle('light-mode');
+            document.documentElement.classList.toggle('dark');
+            const isDarkMode = document.documentElement.classList.contains('dark');
             const icon = themeToggle.querySelector('i');
-            icon.className = isDarkMode ? 'fas fa-sun' : 'fas fa-moon';
+            icon.className = isDarkMode ? 'fas fa-moon' : 'fas fa-sun';
         });
     }
 

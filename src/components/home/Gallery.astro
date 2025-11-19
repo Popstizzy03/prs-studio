@@ -1,110 +1,892 @@
----
-
----
-
-    <!-- Enhanced Photo Gallery -->
-    <section id="gallery" class="section photo-gallery">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Music Moments</h2>
-                <p class="section-subtitle">Capturing the essence of music through stunning visuals and memorable experiences</p>
+<div class="container">
+    <div class="carousel-wrapper">
+        <div class="carousel-header">
+            <h2>Featured Gallery</h2>
+            <p>Discover our curated collection of stunning visuals</p>
+        </div>
+        
+        <div class="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="pics/1.png" alt="Mountain Landscape" loading="lazy">
+                    <div class="carousel-content">
+                        <div class="carousel-title">Majestic Mountains</div>
+                        <div class="carousel-description">Experience the breathtaking beauty of nature's grandest formations</div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="pics/2.png" alt="Forest Path" loading="lazy">
+                    <div class="carousel-content">
+                        <div class="carousel-title">Enchanted Forest</div>
+                        <div class="carousel-description">Wander through mystical pathways surrounded by ancient trees</div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="pics/3.jpg" alt="Ocean Waves" loading="lazy">
+                    <div class="carousel-content">
+                        <div class="carousel-title">Ocean Serenity</div>
+                        <div class="carousel-description">Feel the calming rhythm of waves meeting pristine shores</div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="pics/4.jpg" alt="Desert Dunes" loading="lazy">
+                    <div class="carousel-content">
+                        <div class="carousel-title">Desert Dreams</div>
+                        <div class="carousel-description">Explore the golden sands and endless horizons of the desert</div>
+                    </div>
+                </div>
             </div>
             
-            <div class="photo-slider">
-                <div class="photo-slide active" style="background-image: url('pics/3.jpg');">
-                    <div class="photo-slide-content">
-                        <h3>Live Concerts</h3>
-                        <p>Experience the energy and excitement of live performances from your favorite artists</p>
-                    </div>
-                </div>
-                <div class="photo-slide" style="background-image: url('pics/1.png');">
-                    <div class="photo-slide-content">
-                        <h3>Studio Sessions</h3>
-                        <p>Behind-the-scenes glimpses into the creative process of music production</p>
-                    </div>
-                </div>
-                <div class="photo-slide" style="background-image: url('pics/2.png');">
-                    <div class="photo-slide-content">
-                        <h3>Music Festivals</h3>
-                        <p>Celebrating music culture with thousands of fans from around the world</p>
-                    </div>
-                </div>
-                <div class="photo-slide" style="background-image: url('pics/5.jpg');">
-                    <div class="photo-slide-content">
-                        <h3>Artist Collaborations</h3>
-                        <p>Witnessing magic happen when talented artists come together to create</p>
-                    </div>
-                </div>
-                
-                <div class="slider-nav">
-                    <div class="slider-dot active" data-slide="0"></div>
-                    <div class="slider-dot" data-slide="1"></div>
-                    <div class="slider-dot" data-slide="2"></div>
-                    <div class="slider-dot" data-slide="3"></div>
+            <button class="carousel-control prev" aria-label="Previous slide">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m15 18-6-6 6-6"/>
+                </svg>
+            </button>
+            <button class="carousel-control next" aria-label="Next slide">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m9 18 6-6-6-6"/>
+                </svg>
+            </button>
+
+            <button class="settings-button" aria-label="Open settings">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="3"/>
+                    <path d="M12 1v6m0 10v6m11-7h-6m-10 0H1m15.5-6.5l-4.24 4.24M7.76 7.76 3.52 3.52m12.96 12.96-4.24-4.24M7.76 16.24l-4.24 4.24"/>
+                </svg>
+            </button>
+
+            <div class="auto-play-indicator">Auto-playing</div>
+        </div>
+        
+        <div class="carousel-indicators">
+            <span class="indicator active" data-slide="0"></span>
+            <span class="indicator" data-slide="1"></span>
+            <span class="indicator" data-slide="2"></span>
+            <span class="indicator" data-slide="3"></span>
+        </div>
+    </div>
+</div>
+
+<!-- Settings Modal -->
+<div class="settings-modal">
+    <div class="settings-content">
+        <div class="settings-header">
+            <h3>Carousel Settings</h3>
+            <button class="close-button" aria-label="Close settings">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 6 6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="settings-body">
+            <div class="setting-group">
+                <label class="setting-label">Transition Effect</label>
+                <div class="setting-description">Choose how slides transition between each other</div>
+                <select class="setting-select" id="transition-select">
+                    <option value="slide">Slide</option>
+                    <option value="fade">Fade</option>
+                    <option value="zoom">Zoom</option>
+                    <option value="flip">Flip</option>
+                </select>
+            </div>
+            
+            <div class="setting-group">
+                <label class="setting-label">Auto-play Speed</label>
+                <div class="setting-description">Time between automatic slide changes (in seconds)</div>
+                <div class="range-container">
+                    <input type="range" class="range-input" id="speed-range" min="1" max="10" value="5" step="0.5">
+                    <span class="range-value" id="speed-value">5.0s</span>
                 </div>
             </div>
+            
+            <div class="setting-group">
+                <label class="setting-checkbox">
+                    <input type="checkbox" id="loop-checkbox" checked>
+                    <span>Loop continuously</span>
+                </label>
+                <div class="setting-description">Restart from the first slide after reaching the last one</div>
+            </div>
+            
+            <div class="setting-group">
+                <label class="setting-checkbox">
+                    <input type="checkbox" id="autoplay-checkbox" checked>
+                    <span>Auto-play enabled</span>
+                </label>
+                <div class="setting-description">Automatically advance slides</div>
+            </div>
+            
+            <div class="setting-group">
+                <label class="setting-checkbox">
+                    <input type="checkbox" id="pause-hover-checkbox" checked>
+                    <span>Pause on hover</span>
+                </label>
+                <div class="setting-description">Pause auto-play when hovering over the carousel</div>
+            </div>
         </div>
-    </section>
+    </div>
+</div>
 
-    <style>
-            /* Enhanced Photo Gallery */
-        .photo-gallery {
-            background: var(--dark-bg);
+<style>
+    :root {
+        --background: #ffffff;
+        --foreground: #0a0a0a;
+        --card: #ffffff;
+        --card-foreground: #0a0a0a;
+        --primary: #5D5CDE;
+        --primary-foreground: #fafafa;
+        --secondary: #f1f5f9;
+        --secondary-foreground: #0a0a0a;
+        --muted: #f1f5f9;
+        --muted-foreground: #64748b;
+        --accent: #f1f5f9;
+        --accent-foreground: #0a0a0a;
+        --border: #e2e8f0;
+        --input: #e2e8f0;
+        --ring: #5D5CDE;
+        --radius: 0.5rem;
+    }
+
+    .dark {
+        --background: #181818;
+        --foreground: #fafafa;
+        --card: #181818;
+        --card-foreground: #fafafa;
+        --primary: #5D5CDE;
+        --primary-foreground: #fafafa;
+        --secondary: #1e293b;
+        --secondary-foreground: #fafafa;
+        --muted: #1e293b;
+        --muted-foreground: #94a3b8;
+        --accent: #1e293b;
+        --accent-foreground: #fafafa;
+        --border: #334155;
+        --input: #334155;
+        --ring: #5D5CDE;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .carousel-wrapper {
+        background-color: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+        overflow: hidden;
+        position: relative;
+    }
+
+    .carousel {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .carousel-inner {
+        display: flex;
+        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .carousel-item {
+        min-width: 100%;
+        position: relative;
+    }
+
+    .carousel-item img {
+        width: 100%;
+        height: 400px;
+        object-fit: cover;
+        display: block;
+    }
+
+    .carousel-content {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+        color: white;
+        padding: 2rem;
+        transform: translateY(100%);
+        transition: transform 0.3s ease;
+    }
+
+    .carousel-item.active .carousel-content {
+        transform: translateY(0);
+    }
+
+    .carousel-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+
+    .carousel-description {
+        font-size: 0.875rem;
+        opacity: 0.9;
+    }
+
+    .carousel-control {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: var(--background);
+        color: var(--foreground);
+        border: 1px solid var(--border);
+        border-radius: 50%;
+        width: 48px;
+        height: 48px;
+        cursor: pointer;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        transition: all 0.2s ease;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        opacity: 0.8;
+    }
+
+    .carousel-control:hover {
+        opacity: 1;
+        background-color: var(--primary);
+        color: var(--primary-foreground);
+        border-color: var(--primary);
+        transform: translateY(-50%) scale(1.05);
+    }
+
+    .carousel-control:active {
+        transform: translateY(-50%) scale(0.95);
+    }
+
+    .prev {
+        left: 1rem;
+    }
+
+    .next {
+        right: 1rem;
+    }
+
+    .carousel-indicators {
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 1rem;
+        background-color: var(--card);
+    }
+
+    .indicator {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: var(--muted);
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .indicator.active {
+        background-color: var(--primary);
+        transform: scale(1.2);
+    }
+
+    .indicator:hover {
+        background-color: var(--primary);
+        opacity: 0.7;
+    }
+
+    .carousel-header {
+        padding: 1.5rem;
+        border-bottom: 1px solid var(--border);
+        background-color: var(--card);
+    }
+
+    .carousel-header h2 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--foreground);
+        margin-bottom: 0.25rem;
+    }
+
+    .carousel-header p {
+        color: var(--muted-foreground);
+        font-size: 0.875rem;
+    }
+
+    /* Auto-play indicator */
+    .auto-play-indicator {
+        position: absolute;
+        bottom: 1rem;
+        right: 1rem;
+        background-color: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 0.5rem;
+        border-radius: var(--radius);
+        font-size: 0.75rem;
+        display: none;
+    }
+
+    .auto-play-indicator.active {
+        display: block;
+    }
+
+    /* Settings Button */
+    .settings-button {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background-color: var(--background);
+        color: var(--foreground);
+        border: 1px solid var(--border);
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        opacity: 0.8;
+    }
+
+    .settings-button:hover {
+        opacity: 1;
+        background-color: var(--primary);
+        color: var(--primary-foreground);
+        border-color: var(--primary);
+        transform: scale(1.05);
+    }
+
+    /* Settings Modal */
+    .settings-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(4px);
+    }
+
+    .settings-modal.active {
+        display: flex;
+    }
+
+    .settings-content {
+        background-color: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        max-width: 400px;
+        width: 90%;
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+
+    .settings-header {
+        padding: 1.5rem;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .settings-header h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--foreground);
+        margin: 0;
+    }
+
+    .close-button {
+        background: none;
+        border: none;
+        color: var(--muted-foreground);
+        cursor: pointer;
+        padding: 0.5rem;
+        border-radius: var(--radius);
+        transition: all 0.2s ease;
+    }
+
+    .close-button:hover {
+        background-color: var(--muted);
+        color: var(--foreground);
+    }
+
+    .settings-body {
+        padding: 1.5rem;
+    }
+
+    .setting-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .setting-group:last-child {
+        margin-bottom: 0;
+    }
+
+    .setting-label {
+        display: block;
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: var(--foreground);
+        margin-bottom: 0.5rem;
+    }
+
+    .setting-description {
+        font-size: 0.75rem;
+        color: var(--muted-foreground);
+        margin-bottom: 0.5rem;
+    }
+
+    .setting-input {
+        width: 100%;
+        padding: 0.5rem 0.75rem;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        background-color: var(--background);
+        color: var(--foreground);
+        font-size: 1rem;
+        transition: border-color 0.2s ease;
+    }
+
+    .setting-input:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(93, 92, 222, 0.1);
+    }
+
+    .setting-select {
+        width: 100%;
+        padding: 0.5rem 0.75rem;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        background-color: var(--background);
+        color: var(--foreground);
+        font-size: 1rem;
+        cursor: pointer;
+    }
+
+    .setting-checkbox {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+    }
+
+    .setting-checkbox input {
+        margin: 0;
+    }
+
+    .range-container {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .range-input {
+        flex: 1;
+    }
+
+    .range-value {
+        min-width: 3rem;
+        text-align: center;
+        font-size: 0.875rem;
+        color: var(--muted-foreground);
+    }
+
+    /* Transition Effects */
+    .carousel-inner.fade {
+        position: relative;
+    }
+
+    .carousel-inner.fade .carousel-item {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        transition: opacity 0.6s ease-in-out;
+    }
+
+    .carousel-inner.fade .carousel-item.active {
+        opacity: 1;
+        position: relative;
+    }
+
+    .carousel-inner.zoom .carousel-item {
+        transition: transform 0.6s ease-in-out;
+    }
+
+    .carousel-inner.zoom .carousel-item:not(.active) {
+        transform: scale(0.8);
+    }
+
+    .carousel-inner.flip {
+        perspective: 1000px;
+    }
+
+    .carousel-inner.flip .carousel-item {
+        transition: transform 0.6s ease-in-out;
+        transform-style: preserve-3d;
+    }
+
+    .carousel-inner.flip .carousel-item:not(.active) {
+        transform: rotateY(90deg);
+    }
+
+    @media (max-width: 768px) {
+        .carousel-item img {
+            height: 300px;
         }
 
-        .photo-slider {
-            position: relative;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
+        .carousel-content {
+            padding: 1rem;
         }
 
-        .photo-slide {
-            position: relative;
-            height: 500px;
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: flex-end;
+        .carousel-title {
+            font-size: 1.25rem;
         }
 
-        .photo-slide-content {
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
-            color: white;
-            padding: 3rem;
-            width: 100%;
+        .carousel-control {
+            width: 40px;
+            height: 40px;
+            font-size: 1rem;
         }
 
-        .photo-slide h3 {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
+        .prev {
+            left: 0.5rem;
         }
 
-        .photo-slide p {
-            font-size: 1.1rem;
-            opacity: 0.9;
+        .next {
+            right: 0.5rem;
         }
 
-        .slider-nav {
-            position: absolute;
-            bottom: 2rem;
-            right: 2rem;
-            display: flex;
-            gap: 0.5rem;
+        .carousel-header {
+            padding: 1rem;
         }
 
-        .slider-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.5);
-            cursor: pointer;
-            transition: all 0.3s ease;
+        .carousel-header h2 {
+            font-size: 1.25rem;
         }
 
-        .slider-dot.active {
-            background: white;
-            transform: scale(1.2);
+        .settings-button {
+            width: 36px;
+            height: 36px;
+            top: 0.5rem;
+            right: 0.5rem;
         }
-    </style>
+    }
+
+    @media (max-width: 480px) {
+        .carousel-item img {
+            height: 250px;
+        }
+
+        .carousel-content {
+            padding: 0.75rem;
+        }
+
+        .carousel-title {
+            font-size: 1.125rem;
+        }
+
+        .carousel-description {
+            font-size: 0.8rem;
+        }
+    }
+
+    /* Loading animation */
+    .carousel-item img {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .carousel-item img.loaded {
+        opacity: 1;
+    }
+</style>
+<script>
+    class ModernCarousel {
+        constructor() {
+            this.currentIndex = 0;
+            this.slides = document.querySelectorAll('.carousel-item');
+            this.indicators = document.querySelectorAll('.indicator');
+            this.carouselInner = document.querySelector('.carousel-inner');
+            this.autoPlayIndicator = document.querySelector('.auto-play-indicator');
+            this.autoPlayInterval = null;
+            this.isAutoPlaying = false;
+            this.touchStartX = 0;
+            this.touchEndX = 0;
+            
+            // Settings
+            this.settings = {
+                transition: 'slide',
+                speed: 5000, // milliseconds
+                loop: true,
+                autoplay: true,
+                pauseOnHover: true
+            };
+            
+            this.init();
+        }
+
+        init() {
+            this.setupEventListeners();
+            this.setupSettingsModal();
+            this.loadImages();
+            this.startAutoPlay();
+            this.setupDarkMode();
+        }
+
+        setupEventListeners() {
+            // Navigation buttons
+            document.querySelector('.prev').addEventListener('click', () => this.moveSlide(-1));
+            document.querySelector('.next').addEventListener('click', () => this.moveSlide(1));
+
+            // Indicator dots
+            this.indicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', () => this.goToSlide(index));
+            });
+
+            // Touch events for mobile swiping
+            this.carouselInner.addEventListener('touchstart', (e) => {
+                this.touchStartX = e.changedTouches[0].screenX;
+            });
+
+            this.carouselInner.addEventListener('touchend', (e) => {
+                this.touchEndX = e.changedTouches[0].screenX;
+                this.handleSwipe();
+            });
+
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') this.moveSlide(-1);
+                if (e.key === 'ArrowRight') this.moveSlide(1);
+            });
+
+            // Pause auto-play on hover
+            document.querySelector('.carousel').addEventListener('mouseenter', () => {
+                if (this.settings.pauseOnHover) {
+                    this.pauseAutoPlay();
+                }
+            });
+
+            document.querySelector('.carousel').addEventListener('mouseleave', () => {
+                if (this.settings.pauseOnHover && this.settings.autoplay) {
+                    this.startAutoPlay();
+                }
+            });
+
+            // Pause auto-play when window is not visible
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) {
+                    this.pauseAutoPlay();
+                } else if (this.settings.autoplay) {
+                    this.startAutoPlay();
+                }
+            });
+        }
+
+        setupSettingsModal() {
+            const settingsButton = document.querySelector('.settings-button');
+            const settingsModal = document.querySelector('.settings-modal');
+            const closeButton = document.querySelector('.close-button');
+            
+            // Settings inputs
+            const transitionSelect = document.getElementById('transition-select');
+            const speedRange = document.getElementById('speed-range');
+            const speedValue = document.getElementById('speed-value');
+            const loopCheckbox = document.getElementById('loop-checkbox');
+            const autoplayCheckbox = document.getElementById('autoplay-checkbox');
+            const pauseHoverCheckbox = document.getElementById('pause-hover-checkbox');
+
+            // Open settings modal
+            settingsButton.addEventListener('click', () => {
+                settingsModal.classList.add('active');
+            });
+
+            // Close settings modal
+            const closeModal = () => {
+                settingsModal.classList.remove('active');
+            };
+
+            closeButton.addEventListener('click', closeModal);
+            settingsModal.addEventListener('click', (e) => {
+                if (e.target === settingsModal) closeModal();
+            });
+
+            // ESC key to close modal
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && settingsModal.classList.contains('active')) {
+                    closeModal();
+                }
+            });
+
+            // Transition effect change
+            transitionSelect.addEventListener('change', (e) => {
+                this.setTransition(e.target.value);
+            });
+
+            // Speed change
+            speedRange.addEventListener('input', (e) => {
+                const speed = parseFloat(e.target.value);
+                speedValue.textContent = speed.toFixed(1) + 's';
+                this.settings.speed = speed * 1000;
+                if (this.isAutoPlaying) {
+                    this.pauseAutoPlay();
+                    this.startAutoPlay();
+                }
+            });
+
+            // Loop toggle
+            loopCheckbox.addEventListener('change', (e) => {
+                this.settings.loop = e.target.checked;
+            });
+
+            // Auto-play toggle
+            autoplayCheckbox.addEventListener('change', (e) => {
+                this.settings.autoplay = e.target.checked;
+                if (e.target.checked) {
+                    this.startAutoPlay();
+                } else {
+                    this.pauseAutoPlay();
+                }
+            });
+
+            // Pause on hover toggle
+            pauseHoverCheckbox.addEventListener('change', (e) => {
+                this.settings.pauseOnHover = e.target.checked;
+            });
+        }
+
+        setTransition(type) {
+            this.settings.transition = type;
+            
+            // Remove all transition classes
+            this.carouselInner.classList.remove('fade', 'zoom', 'flip');
+            
+            // Add the selected transition class
+            if (type !== 'slide') {
+                this.carouselInner.classList.add(type);
+            }
+            
+            // Reset transform for non-slide transitions
+            if (type === 'fade' || type === 'zoom' || type === 'flip') {
+                this.carouselInner.style.transform = 'translateX(0)';
+            } else {
+                this.carouselInner.style.transform = `translateX(-${this.currentIndex * 100}%)`;
+            }
+        }
+
+        moveSlide(direction) {
+            const lastIndex = this.currentIndex;
+            
+            this.slides[this.currentIndex].classList.remove('active');
+            this.indicators[this.currentIndex].classList.remove('active');
+
+            if (this.settings.loop) {
+                this.currentIndex = (this.currentIndex + direction + this.slides.length) % this.slides.length;
+            } else {
+                const newIndex = this.currentIndex + direction;
+                if (newIndex >= 0 && newIndex < this.slides.length) {
+                    this.currentIndex = newIndex;
+                } else {
+                    // If not looping and at boundary, don't move
+                    this.slides[this.currentIndex].classList.add('active');
+                    this.indicators[this.currentIndex].classList.add('active');
+                    return;
+                }
+            }
+
+            this.slides[this.currentIndex].classList.add('active');
+            this.indicators[this.currentIndex].classList.add('active');
+
+            // Apply transition based on current setting
+            if (this.settings.transition === 'slide') {
+                this.carouselInner.style.transform = `translateX(-${this.currentIndex * 100}%)`;
+            }
+        }
+
+        goToSlide(index) {
+            const direction = index - this.currentIndex;
+            this.moveSlide(direction);
+        }
+
+        handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = this.touchStartX - this.touchEndX;
+
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    this.moveSlide(1); // Swipe left, go to next
+                } else {
+                    this.moveSlide(-1); // Swipe right, go to previous
+                }
+            }
+        }
+
+        startAutoPlay() {
+            if (!this.settings.autoplay || this.autoPlayInterval) return;
+            
+            this.isAutoPlaying = true;
+            this.autoPlayIndicator.classList.add('active');
+            this.autoPlayInterval = setInterval(() => {
+                if (!this.settings.loop && this.currentIndex === this.slides.length - 1) {
+                    this.pauseAutoPlay();
+                    return;
+                }
+                this.moveSlide(1);
+            }, this.settings.speed);
+        }
+
+        pauseAutoPlay() {
+            if (this.autoPlayInterval) {
+                clearInterval(this.autoPlayInterval);
+                this.autoPlayInterval = null;
+                this.isAutoPlaying = false;
+                this.autoPlayIndicator.classList.remove('active');
+            }
+        }
+
+        loadImages() {
+            const images = document.querySelectorAll('.carousel-item img');
+            images.forEach(img => {
+                if (img.complete) {
+                    img.classList.add('loaded');
+                } else {
+                    img.addEventListener('load', () => {
+                        img.classList.add('loaded');
+                    });
+                }
+            });
+        }
+
+        setupDarkMode() {
+            // Detect system preference
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.documentElement.classList.add('dark');
+            }
+
+            // Listen for changes
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+                if (event.matches) {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            });
+        }
+    }
+
+    // Initialize carousel when DOM is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+        new ModernCarousel();
+    });
+</script>
