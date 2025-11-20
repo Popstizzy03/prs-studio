@@ -4,6 +4,10 @@
 
    <!-- Enhanced Hero Section -->
     <section id="home" class="hero">
+        <picture class="hero-bg-container">
+            <source srcset="/pics/1-640.webp 640w, /pics/1-1280.webp 1280w, /pics/1-1920.webp 1920w" sizes="100vw" type="image/webp">
+            <img src="/pics/1-original.png" alt="" role="presentation" class="hero-bg">
+        </picture>
         <div class="hero-content">
             <h1>Hello, I'm Sampa The Psalmist</h1>
             <p>Discover, stream, and enjoy millions of songs from me and other artists around the world with crystal-clear quality and immersive sound.</p>
@@ -18,7 +22,7 @@
                 /* Enhanced Hero Section */
         .hero {
             height: 100vh;
-            background: linear-gradient(135deg, rgba(93, 92, 222, 0.9), rgba(255, 59, 48, 0.8)), url('pics/1.png');
+            background: linear-gradient(135deg, rgba(93, 92, 222, 0.9), rgba(255, 59, 48, 0.8)), url('/pics/1-original.png');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -27,6 +31,30 @@
             justify-content: center;
             position: relative;
             overflow: hidden;
+        }
+
+        .hero-bg-container, .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+
+        .hero-bg {
+            object-fit: cover;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(93, 92, 222, 0.9), rgba(255, 59, 48, 0.8));
+            z-index: -1;
         }
 
         .hero::before {
