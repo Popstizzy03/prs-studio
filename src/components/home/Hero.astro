@@ -1,104 +1,417 @@
 ---
-
 ---
-
-   <!-- Enhanced Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1>Hello, I'm Sampa The Psalmist</h1>
-            <p>Discover, stream, and enjoy millions of songs from me and other artists around the world with crystal-clear quality and immersive sound.</p>
-            <a href="#music" class="hero-cta">
-                <i class="fas fa-play"></i>
-                Start Listening
+<!-- Ultra-Modern Hero Section -->
+<section id="home" class="hero">
+    <div class="hero-bg-animation">
+        <div class="floating-orb orb-1"></div>
+        <div class="floating-orb orb-2"></div>
+        <div class="floating-orb orb-3"></div>
+    </div>
+    
+    <div class="hero-grid"></div>
+    
+    <div class="hero-content">
+        <div class="hero-badge">
+            <span class="pulse-dot"></span>
+            <span>Now Streaming on Spotify</span>
+        </div>
+        
+        <h1 class="hero-title">
+            <span class="title-line">Hello, I'm</span>
+            <span class="title-highlight">Sampa The Psalmist</span>
+        </h1>
+        
+        <p class="hero-description">
+            Discover, stream, and enjoy millions of songs from me and other artists around the world with crystal-clear quality and immersive sound.
+        </p>
+        
+        <div class="hero-actions">
+            <a href="#music" class="hero-cta primary">
+                <span class="cta-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M8 5v14l11-7z" fill="currentColor"/>
+                    </svg>
+                </span>
+                <span>Start Listening</span>
+                <span class="cta-shine"></span>
+            </a>
+            
+            <a href="#about" class="hero-cta secondary">
+                <span>Explore Music</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
             </a>
         </div>
-    </section>
+        
+        <div class="hero-stats">
+            <div class="stat-item">
+                <div class="stat-value">10K+</div>
+                <div class="stat-label">Listeners</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <div class="stat-value">50+</div>
+                <div class="stat-label">Songs</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <div class="stat-value">5M+</div>
+                <div class="stat-label">Streams</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="scroll-indicator">
+        <div class="mouse">
+            <div class="wheel"></div>
+        </div>
+    </div>
+</section>
 
-    <style>
-                /* Enhanced Hero Section */
+<style>
+    /* Hero Container */
+    .hero {
+        min-height: 100vh;
+        background: linear-gradient(135deg, #0a0a0f 0%, #1a0a2e 50%, #16213e 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        padding: 2rem;
+        margin-top: 35px;
+    }
+
+    /* Animated Background Orbs */
+    .hero-bg-animation {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+    }
+
+    .floating-orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(80px);
+        opacity: 0.4;
+        animation: float 20s ease-in-out infinite;
+    }
+
+    .orb-1 {
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(circle, #6366f1 0%, transparent 70%);
+        top: -10%;
+        left: -10%;
+        animation-delay: 0s;
+    }
+
+    .orb-2 {
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(circle, #ec4899 0%, transparent 70%);
+        bottom: -5%;
+        right: -5%;
+        animation-delay: -7s;
+    }
+
+    .orb-3 {
+        width: 350px;
+        height: 350px;
+        background: radial-gradient(circle, #8b5cf6 0%, transparent 70%);
+        top: 50%;
+        left: 50%;
+        animation-delay: -14s;
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        33% { transform: translate(30px, -30px) scale(1.1); }
+        66% { transform: translate(-20px, 20px) scale(0.9); }
+    }
+
+    /* Grid Overlay */
+    .hero-grid {
+        position: absolute;
+        inset: 0;
+        background-image: 
+            linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
+        background-size: 50px 50px;
+        animation: gridMove 20s linear infinite;
+    }
+
+    @keyframes gridMove {
+        0% { transform: translate(0, 0); }
+        100% { transform: translate(50px, 50px); }
+    }
+
+    /* Content Container */
+    .hero-content {
+        text-align: center;
+        z-index: 2;
+        max-width: 900px;
+        position: relative;
+    }
+
+    /* Badge */
+    .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: rgba(99, 102, 241, 0.1);
+        border: 1px solid rgba(99, 102, 241, 0.2);
+        padding: 0.5rem 1.25rem;
+        border-radius: 50px;
+        font-size: 0.875rem;
+        color: #a5b4fc;
+        margin-bottom: 2rem;
+        backdrop-filter: blur(10px);
+        animation: fadeInDown 0.8s ease-out;
+    }
+
+    .pulse-dot {
+        width: 8px;
+        height: 8px;
+        background: #6366f1;
+        border-radius: 50%;
+        animation: pulse 2s ease-in-out infinite;
+        box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.7);
+    }
+
+    @keyframes pulse {
+        0% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.7); }
+        70% { box-shadow: 0 0 0 10px rgba(99, 102, 241, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0); }
+    }
+
+    /* Title */
+    .hero-title {
+        font-size: clamp(2.5rem, 8vw, 5.5rem);
+        font-weight: 800;
+        margin-bottom: 1.5rem;
+        line-height: 1.1;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .title-line {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: clamp(1.5rem, 4vw, 2.5rem);
+        font-weight: 400;
+        animation: fadeInUp 0.8s ease-out 0.2s both;
+    }
+
+    .title-highlight {
+        background: linear-gradient(135deg, #6366f1 0%, #ec4899 50%, #8b5cf6 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        background-size: 200% auto;
+        animation: fadeInUp 0.8s ease-out 0.3s both, shimmer 3s linear infinite;
+    }
+
+    @keyframes shimmer {
+        to { background-position: 200% center; }
+    }
+
+    /* Description */
+    .hero-description {
+        font-size: clamp(1rem, 2vw, 1.25rem);
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 3rem;
+        line-height: 1.6;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+        animation: fadeInUp 0.8s ease-out 0.4s both;
+    }
+
+    /* Action Buttons */
+    .hero-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 4rem;
+        animation: fadeInUp 0.8s ease-out 0.5s both;
+    }
+
+    .hero-cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 1rem 2rem;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero-cta.primary {
+        background: linear-gradient(135deg, #6366f1, #8b5cf6);
+        color: white;
+        box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+    }
+
+    .hero-cta.primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 40px rgba(99, 102, 241, 0.5);
+    }
+
+    .hero-cta.secondary {
+        background: rgba(255, 255, 255, 0.05);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+    }
+
+    .hero-cta.secondary:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.2);
+        transform: translateY(-3px);
+    }
+
+    .cta-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .cta-shine {
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        transition: left 0.5s;
+    }
+
+    .hero-cta.primary:hover .cta-shine {
+        left: 100%;
+    }
+
+    /* Stats */
+    .hero-stats {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        animation: fadeInUp 0.8s ease-out 0.6s both;
+    }
+
+    .stat-item {
+        text-align: center;
+    }
+
+    .stat-value {
+        font-size: clamp(1.5rem, 3vw, 2rem);
+        font-weight: 700;
+        background: linear-gradient(135deg, #fff, #a5b4fc);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 0.25rem;
+    }
+
+    .stat-label {
+        font-size: 0.875rem;
+        color: rgba(255, 255, 255, 0.5);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+    }
+
+    .stat-divider {
+        width: 1px;
+        height: 40px;
+        background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.2), transparent);
+    }
+
+    /* Scroll Indicator */
+    .scroll-indicator {
+        position: absolute;
+        bottom: 2rem;
+        left: 50%;
+        transform: translateX(-50%);
+        animation: fadeInUp 0.8s ease-out 1s both;
+    }
+
+    .mouse {
+        width: 26px;
+        height: 40px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 13px;
+        position: relative;
+    }
+
+    .wheel {
+        width: 4px;
+        height: 8px;
+        background: rgba(255, 255, 255, 0.5);
+        border-radius: 2px;
+        position: absolute;
+        top: 8px;
+        left: 50%;
+        transform: translateX(-50%);
+        animation: scroll 2s ease-in-out infinite;
+    }
+
+    @keyframes scroll {
+        0% { opacity: 1; transform: translateX(-50%) translateY(0); }
+        100% { opacity: 0; transform: translateX(-50%) translateY(15px); }
+    }
+
+    /* Animations */
+    @keyframes fadeInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
         .hero {
-            height: 100vh;
-            background: linear-gradient(135deg, rgba(93, 92, 222, 0.9), rgba(255, 59, 48, 0.8)), url('pics/1.png');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
+            min-height: 100svh;
         }
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: var(--gradient);
-            opacity: 0.1;
-            animation: heroAnimation 6s ease-in-out infinite;
+        .hero-stats {
+            gap: 1rem;
         }
 
-        @keyframes heroAnimation {
-            0%, 100% { opacity: 0.1; transform: scale(1); }
-            50% { opacity: 0.2; transform: scale(1.05); }
+        .stat-divider {
+            height: 30px;
         }
 
-        .hero-content {
-            text-align: center;
-            z-index: 2;
-            max-width: 800px;
-            padding: 0 2rem;
-        }
-
-        .hero h1 {
-            font-size: clamp(3rem, 6vw, 5rem);
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(45deg, #fff, #f0f0f0);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: fadeInUp 1s ease-out;
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 2.5rem;
-            animation: fadeInUp 1s ease-out 0.2s both;
+        .hero-actions {
+            flex-direction: column;
+            align-items: stretch;
         }
 
         .hero-cta {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            background: var(--gradient);
-            color: white;
-            padding: 1.25rem 2.5rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            animation: fadeInUp 1s ease-out 0.4s both;
+            justify-content: center;
         }
-
-        .hero-cta:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 20px 40px rgba(93, 92, 222, 0.4);
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-    </style>
+    }
+</style>
