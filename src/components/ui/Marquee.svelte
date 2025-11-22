@@ -10,9 +10,9 @@
   <div class="relative bg-zinc-900 text-white overflow-hidden h-8 flex items-center z-50 transition-all duration-300">
     <!-- The Scrolling Text -->
     <div class="marquee-track flex whitespace-nowrap font-mono text-[10px] uppercase tracking-widest">
-      <span class="mx-4">Built by Rabboni Kabongo | +260973178018 ✦ Roviolt Platfoems | kabongorabboni03@gmail.com ✦ Lusaka, ZM</span>
-      <span class="mx-4">Built by Rabboni Kabongo | +260973178018 ✦ Roviolt Platfoems | kabongorabboni03@gmail.com ✦ Lusaka, ZM</span>
-      <span class="mx-4">Built by Rabboni Kabongo | +260973178018 ✦ Roviolt Platfoems | kabongorabboni03@gmail.com ✦ Lusaka, ZM</span>
+      <span class="mx-4">Built by Rabboni Kabongo | +260973178018 ✦ Roviolt Platforms | kabongorabboni03@gmail.com ✦ Lusaka, ZM</span>
+      <span class="mx-4">Built by Rabboni Kabongo | +260973178018 ✦ Roviolt Platforms | kabongorabboni03@gmail.com ✦ Lusaka, ZM</span>
+      <span class="mx-4">Built by Rabboni Kabongo | +260973178018 ✦ Roviolt Platforms | kabongorabboni03@gmail.com ✦ Lusaka, ZM</span>
     </div>
 
     <!-- The Close Button -->

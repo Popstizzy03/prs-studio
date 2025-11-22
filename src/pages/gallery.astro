@@ -1,0 +1,35 @@
+---
+import LogbookLayout from '../layouts/LogbookLayout.astro';
+import GalleryViewer from '../components/gallery/GalleryViewer.svelte';
+
+const images = [
+  "/pics/11.jpg",
+  "/pics/10.jpg",
+  "/pics/09.jpg",
+  "/pics/08.jpg",
+  "/pics/07.jpg",
+  "/pics/06.jpg",
+  "/pics/5.jpg",
+  "/pics/4.jpg",
+  "/pics/3.jpg",
+  "/pics/2.png",
+  "/pics/1.png"
+];
+---
+
+<LogbookLayout title="Gallery">
+  
+  <header class="mb-16 border-b border-zinc-200 dark:border-zinc-800 pb-8">
+    <h1 class="font-sans text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 mb-4">
+      Visual Archive
+    </h1>
+    <p class="font-serif text-lg text-zinc-600 dark:text-zinc-400 italic">
+      Moments captured in the studio and beyond.
+    </p>
+  </header>
+
+  <section class="mb-24">
+    <GalleryViewer client:load images={images} />
+  </section>
+
+</LogbookLayout>

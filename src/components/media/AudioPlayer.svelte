@@ -23,13 +23,13 @@
   }
 </script>
 
-<div class="my-8 border border-zinc-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md">
+<div class="my-8 border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-4 shadow-sm transition-shadow hover:shadow-md">
   <div class="flex items-center gap-4">
     
     <!-- Play Button -->
     <button 
       onclick={toggle}
-      class="flex h-10 w-10 items-center justify-center bg-orange-600 text-white hover:bg-zinc-900 transition-colors shadow-sm"
+      class="flex h-10 w-10 items-center justify-center bg-orange-600 text-white hover:bg-zinc-900 dark:hover:bg-orange-500 transition-colors shadow-sm"
       aria-label={isActivePlaying ? "Pause" : "Play"}
     >
       <span class="text-xs">{isActivePlaying ? '■' : '▶'}</span>
@@ -37,14 +37,14 @@
 
     <!-- Track Info -->
     <div class="flex-1 space-y-2">
-      <div class="flex justify-between font-mono text-[10px] uppercase tracking-widest text-zinc-500">
+      <div class="flex justify-between font-mono text-[10px] uppercase tracking-widest text-zinc-500 dark:text-zinc-400">
         <span>{title}</span>
         <span>{isActivePlaying ? 'Playing...' : '00:00'}</span>
       </div>
       
       <!-- Progress Bar -->
-      <div class="h-1 w-full bg-zinc-100 overflow-hidden">
-        <div class="h-full bg-zinc-900 transition-all duration-200" style="width: {progress}%"></div>
+      <div class="h-1 w-full bg-zinc-100 dark:bg-zinc-800 overflow-hidden">
+        <div class="h-full bg-zinc-900 dark:bg-orange-600 transition-all duration-200" style="width: {progress}%"></div>
       </div>
     </div>
   </div>

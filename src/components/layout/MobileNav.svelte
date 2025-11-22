@@ -6,6 +6,7 @@
   const links = [
     { name: 'Logs', href: '/' },
     { name: 'Music', href: '/music' },
+    { name: 'Gallery', href: '/gallery' },
     { name: 'Bio', href: '/bio' },
   ];
 </script>

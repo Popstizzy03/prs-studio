@@ -1,0 +1,31 @@
+---
+interface Props {
+  label: string;
+  value?: string | number;
+  color?: 'default' | 'orange' | 'green' | 'zinc';
+  class?: string;
+}
+
+const { label, value, color = 'default', class: className } = Astro.props;
+
+const variants = {
+  default: "bg-white dark:bg-zinc-900 border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-400",
+  zinc: "bg-zinc-100 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300",
+  orange: "bg-orange-50 dark:bg-orange-950/30 border-orange-200 dark:border-orange-900 text-orange-700 dark:text-orange-400",
+  green: "bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-900 text-emerald-700 dark:text-emerald-400",
+};
+---
+
+<div class:list={[
+  "inline-flex items-center gap-2 px-3 py-1.5 rounded border text-[10px] font-mono uppercase tracking-widest shadow-sm",
+  variants[color],
+  className
+]}>
+  <span class="font-bold opacity-80">{label}</span>
+  {value && (
+    <>
+      <span class="opacity-30">|</span>
+      <span>{value}</span>
+    </>
+  )}
+</div>

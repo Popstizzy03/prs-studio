@@ -1,0 +1,25 @@
+---
+interface Props {
+  label: string;
+  href?: string;
+  class?: string;
+}
+
+const { label, href, class: className } = Astro.props;
+
+const baseStyles = "inline-flex items-center px-2.5 py-1 rounded text-[10px] font-mono uppercase tracking-wider border transition-all duration-300";
+const defaultColors = "bg-zinc-100 dark:bg-zinc-800/50 border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-400";
+const hoverColors = "hover:border-orange-300 dark:hover:border-orange-700 hover:text-orange-700 dark:hover:text-orange-400 hover:bg-orange-50 dark:hover:bg-orange-900/20";
+---
+
+{
+  href ? (
+    <a href={href} class:list={[baseStyles, defaultColors, hoverColors, className]}>
+      #{label}
+    </a>
+  ) : (
+    <span class:list={[baseStyles, defaultColors, className]}>
+      #{label}
+    </span>
+  )
+}

@@ -58,22 +58,22 @@
 
 <!-- Mini Player UI -->
 {#if $showMiniPlayer && $currentTrack}
-  <div class="fixed bottom-4 right-4 z-50 w-72 bg-white border border-zinc-200 shadow-xl p-3 flex items-center gap-3 animate-in slide-in-from-bottom-4 fade-in duration-300">
+  <div class="fixed bottom-4 right-4 z-50 w-72 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-xl p-3 flex items-center gap-3 animate-in slide-in-from-bottom-4 fade-in duration-300">
     
     <!-- Cover / Placeholder -->
-    <div class="h-12 w-12 bg-zinc-100 flex-shrink-0 overflow-hidden">
+    <div class="h-12 w-12 bg-zinc-100 dark:bg-zinc-800 flex-shrink-0 overflow-hidden">
       {#if $currentTrack.cover}
         <img src={$currentTrack.cover} alt="Cover" class="h-full w-full object-cover" />
       {:else}
-        <div class="h-full w-full flex items-center justify-center bg-zinc-800 text-white text-[8px]">PRS</div>
+        <div class="h-full w-full flex items-center justify-center bg-zinc-800 dark:bg-zinc-700 text-white dark:text-zinc-400 text-[8px]">PRS</div>
       {/if}
     </div>
 
     <!-- Info -->
     <div class="flex-1 min-w-0">
-      <div class="text-xs font-bold truncate text-zinc-900">{$currentTrack.title}</div>
-      <div class="flex items-center gap-2 text-[10px] font-mono text-zinc-500 mt-1">
-        <button onclick={toggleMute} class="hover:text-zinc-900 uppercase">
+      <div class="text-xs font-bold truncate text-zinc-900 dark:text-zinc-100">{$currentTrack.title}</div>
+      <div class="flex items-center gap-2 text-[10px] font-mono text-zinc-500 dark:text-zinc-400 mt-1">
+        <button onclick={toggleMute} class="hover:text-zinc-900 dark:hover:text-zinc-100 uppercase">
           {$isMuted ? 'Unmute' : 'Mute'}
         </button>
         <span>•</span>
@@ -85,14 +85,14 @@
     <div class="flex items-center gap-2">
       <button 
         onclick={togglePlay}
-        class="h-8 w-8 flex items-center justify-center bg-zinc-900 text-white hover:bg-orange-600 transition-colors"
+        class="h-8 w-8 flex items-center justify-center bg-zinc-900 dark:bg-zinc-700 text-white hover:bg-orange-600 dark:hover:bg-orange-500 transition-colors"
       >
         <span class="text-[10px]">{$isPlaying ? '■' : '▶'}</span>
       </button>
       
       <button 
         onclick={closePlayer}
-        class="h-8 w-8 flex items-center justify-center text-zinc-400 hover:text-red-600 transition-colors"
+        class="h-8 w-8 flex items-center justify-center text-zinc-400 dark:text-zinc-500 hover:text-red-600 transition-colors"
         aria-label="Close"
       >
         <span class="text-lg">×</span>
