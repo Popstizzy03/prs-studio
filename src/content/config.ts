@@ -17,4 +17,16 @@ const logs = defineCollection({
   }),
 });
 
-export const collections = { logs };
+const timeline = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    year: z.string(),
+    date: z.date(),
+    category: z.string().default('Milestone'),
+    images: z.array(z.string()).optional(),
+    videos: z.array(z.string()).optional(),
+  }),
+});
+
+export const collections = { logs, timeline };
