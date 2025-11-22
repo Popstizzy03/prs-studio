@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+/* THE STUDIO THEME
+  Strict monochromatic palette with one signal color.
+*/
+:root {
+  --color-paper: #FAFAF5;
+  --color-ink: #1A1A1A;
+  --color-signal: #FF4F00; /* International Orange */
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-feature-settings: "ss01", "ss02"; /* Alternate font glyphs for a technical look */
+}
+
+/* Markdown Content Styling */
+.prose p {
+  font-family: 'Lora', serif;
+  margin-bottom: 1.5rem;
+  line-height: 1.75;
+}
+
+.prose h2 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+}

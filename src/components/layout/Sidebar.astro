@@ -1,0 +1,38 @@
+---
+const links = [
+  { name: 'Index', href: '/' },
+  { name: 'Bio', href: '/bio' },
+  { name: 'Gear', href: '/gear' }, // Future idea
+];
+---
+
+<nav class="h-full flex flex-col justify-between">
+  <!-- Top: Brand -->
+  <div>
+    <a href="/" class="block font-sans font-bold tracking-tighter text-xl mb-12">
+      PRS<span class="text-orange-600">.</span>STUDIO
+    </a>
+
+    <ul class="space-y-4 font-mono text-sm uppercase tracking-widest text-zinc-500">
+      {links.map((link) => (
+        <li>
+          <a 
+            href={link.href} 
+            class="hover:text-orange-600 hover:pl-2 transition-all duration-300 block"
+          >
+            {link.name}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <!-- Bottom: Status -->
+  <div class="font-mono text-[10px] text-zinc-400 uppercase">
+    <div class="flex items-center gap-2 mb-2">
+      <span class="block w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+      <span>System Online</span>
+    </div>
+    <p>Lusaka, ZM</p>
+  </div>
+</nav>
