@@ -4,7 +4,7 @@
   let isOpen = $state(false);
 
   const links = [
-    { name: 'Logs', href: '/' },
+    { name: 'Home', href: '/' },
     { name: 'Music', href: '/music' },
     { name: 'Gallery', href: '/gallery' },
     { name: 'Bio', href: '/bio' },
