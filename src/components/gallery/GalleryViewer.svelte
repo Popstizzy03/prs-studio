@@ -1,20 +1,26 @@
 <script lang="ts">
   import { fade, scale } from 'svelte/transition';
 
-  let { images } = $props();
+  interface GalleryItem {
+    type: 'image' | 'video';
+    src: string;
+    poster?: string; // For videos
+  }
+
+  let { items } = $props<{ items: GalleryItem[] }>();
   
   let pageSize = 6;
   let visibleCount = $state(pageSize);
-  let selectedImage = $state<string | null>(null);
+  let selectedItem = $state<GalleryItem | null>(null);
   
-  let visibleImages = $derived(images.slice(0, visibleCount));
-  let hasMore = $derived(visibleCount < images.length);
+  let visibleItems = $derived(items.slice(0, visibleCount));
+  let hasMore = $derived(visibleCount < items.length);
 
-  // Chunk images for mobile "stacked carousels"
+  // Chunk items for mobile "stacked carousels"
   let mobileChunks = $derived.by(() => {
     const chunks = [];
-    for (let i = 0; i < visibleImages.length; i += 3) {
-      chunks.push(visibleImages.slice(i, i + 3));
+    for (let i = 0; i < visibleItems.length; i += 3) {
+      chunks.push(visibleItems.slice(i, i + 3));
     }
     return chunks;
   });
@@ -23,12 +29,12 @@
     visibleCount += pageSize;
   }
 
-  function openImage(src: string) {
-    selectedImage = src;
+  function openItem(item: GalleryItem) {
+    selectedItem = item;
   }
 
-  function closeImage() {
-    selectedImage = null;
+  function closeItem() {
+    selectedItem = null;
   }
 </script>
 
@@ -43,17 +49,24 @@
         </div>
         <!-- Horizontal Slider -->
         <div class="flex gap-4 overflow-x-auto pb-4 px-1 snap-x snap-mandatory scrollbar-hide">
-          {#each chunk as src}
+          {#each chunk as item}
             <button 
-              onclick={() => openImage(src)}
-              class="snap-center shrink-0 w-[85vw] sm:w-[60vw] aspect-[4/5] relative rounded-lg overflow-hidden border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900 text-left p-0"
+              onclick={() => openItem(item)}
+              class="snap-center shrink-0 w-[85vw] sm:w-[60vw] aspect-[4/5] relative rounded-lg overflow-hidden border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900 text-left p-0 group"
             >
               <img 
-                {src} 
+                src={item.type === 'video' ? (item.poster || item.src) : item.src} 
                 alt="Gallery" 
                 loading="lazy"
-                class="absolute inset-0 w-full h-full object-cover hover:scale-105 transition-all duration-500"
+                class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-all duration-500"
               />
+              {#if item.type === 'video'}
+                <div class="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/40 transition-colors">
+                  <div class="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                  </div>
+                </div>
+              {/if}
             </button>
           {/each}
         </div>
@@ -70,20 +83,26 @@
 
   <!-- DESKTOP VIEW: Masonry / Grid -->
   <div class="hidden md:grid grid-cols-3 gap-6">
-    {#each visibleImages as src, i}
+    {#each visibleItems as item, i}
       <button 
-        onclick={() => openImage(src)}
+        onclick={() => openItem(item)}
         class="relative aspect-[4/5] rounded-lg overflow-hidden border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900 group cursor-pointer text-left p-0 w-full"
         in:fade={{ duration: 300, delay: i * 50 }}
       >
         <img 
-          {src} 
+          src={item.type === 'video' ? (item.poster || item.src) : item.src} 
           alt="Gallery" 
           class="absolute inset-0 w-full h-full object-cover scale-100 group-hover:scale-105 transition-all duration-700"
         />
         
-        <!-- Overlay Info -->
-        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500"></div>
+        <!-- Overlay Info / Play Icon -->
+        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500 flex items-center justify-center">
+           {#if item.type === 'video'}
+              <div class="w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center scale-100 group-hover:scale-110 transition-transform">
+                 <svg class="w-8 h-8 text-white fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+           {/if}
+        </div>
       </button>
     {/each}
   </div>
@@ -101,20 +120,29 @@
   {/if}
   
   <!-- Lightbox Modal -->
-  {#if selectedImage}
-    <div class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md" transition:fade={{ duration: 200 }} onclick={closeImage}>
+  {#if selectedItem}
+    <div class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/95 backdrop-blur-md" transition:fade={{ duration: 200 }} onclick={closeItem}>
       <!-- Close Button (Top Right) -->
-      <button onclick={closeImage} class="absolute top-4 right-4 text-white/50 hover:text-white transition-colors p-2">
+      <button onclick={closeItem} class="absolute top-4 right-4 text-white/50 hover:text-white transition-colors p-2 z-10">
         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
       </button>
 
       <div class="relative max-w-6xl w-full max-h-[90vh] flex items-center justify-center" onclick={(e) => e.stopPropagation()}>
-         <img 
-            src={selectedImage} 
-            alt="Full view" 
-            class="max-w-full max-h-[85vh] object-contain rounded shadow-2xl" 
-            transition:scale={{ start: 0.95, duration: 200 }} 
-         />
+         {#if selectedItem.type === 'video'}
+            <video 
+               src={selectedItem.src} 
+               controls 
+               autoplay 
+               class="max-w-full max-h-[85vh] rounded shadow-2xl outline-none bg-black"
+            ></video>
+         {:else}
+            <img 
+                src={selectedItem.src} 
+                alt="Full view" 
+                class="max-w-full max-h-[85vh] object-contain rounded shadow-2xl" 
+                transition:scale={{ start: 0.95, duration: 200 }} 
+            />
+         {/if}
       </div>
     </div>
   {/if}
