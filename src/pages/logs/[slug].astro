@@ -13,6 +13,8 @@ export async function getStaticPaths() {
 // 2. Get the entry from props
 const { entry } = Astro.props;
 const { Content } = await render(entry);
+
+import AudioPlayer from '../../components/media/AudioPlayer.svelte';
 ---
 
 <LogbookLayout title={entry.data.title}>
@@ -33,7 +35,7 @@ const { Content } = await render(entry);
       </h1>
 
       <!-- Technical Data Grid -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 border-y border-zinc-200 py-4 font-mono text-[10px] uppercase tracking-widest text-zinc-500">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 border-y border-zinc-200 py-4 font-mono text-[10px] uppercase tracking-widest text-zinc-500 mb-8">
         <div>
           <span class="block text-zinc-300">BPM</span>
           {entry.data.bpm || 'Free'}
@@ -48,6 +50,13 @@ const { Content } = await render(entry);
         </div>
       </div>
     </header>
+
+    <!-- Audio Player (Conditional) -->
+    {entry.data.audio_src && (
+      <div class="mb-8">
+        <AudioPlayer client:load src={entry.data.audio_src} title={entry.data.title} />
+      </div>
+    )}
 
     <!-- The Markdown Content -->
     <div class="prose prose-zinc max-w-none prose-headings:font-sans prose-p:font-serif">

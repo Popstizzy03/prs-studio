@@ -4,6 +4,8 @@ date: 2023-11-01
 tags: ["planning", "setup"]
 bpm: 120
 instruments: ["Notebook", "Coffee"]
+cover: "/pics/1.png"
+audio_src: "/music/2.mp3"
 ---
 
 The Objective

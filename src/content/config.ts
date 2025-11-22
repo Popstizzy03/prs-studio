@@ -12,6 +12,8 @@ const logs = defineCollection({
     instruments: z.array(z.string()).optional(),
     // Path to audio file in /public/audio/
     audio_src: z.string().optional(), 
+    // Path to cover image
+    cover: z.string().optional(),
   }),
 });
 

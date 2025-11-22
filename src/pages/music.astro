@@ -7,10 +7,20 @@ const releases = [
     title: "Midnight In Lusaka",
     year: "2024",
     type: "EP",
-    cover: "bg-zinc-800", // Placeholder color
+    cover: "/pics/4.jpg", 
     tracks: [
-      { title: "Intro", src: "/audio/intro.mp3" }, // Ensure these exist or placeholders
-      { title: "Night Walk", src: "/audio/night-walk.mp3" }
+      { title: "Intro", src: "/music/1.mp3" },
+      { title: "Night Walk", src: "/music/2.mp3" }
+    ]
+  },
+  {
+    title: "Solar Drifts",
+    year: "2023",
+    type: "Single",
+    cover: "/pics/1.png",
+    tracks: [
+      { title: "Drift I", src: "/music/3.mp3" },
+      { title: "Drift II", src: "/music/4.mp3" }
     ]
   }
 ];
@@ -26,12 +36,16 @@ const releases = [
     </p>
   </header>
 
-  <div class="space-y-20">
+  <div class="space-y-20 mb-24">
     {releases.map(release => (
       <div class="grid md:grid-cols-[200px_1fr] gap-8">
         <!-- Cover Art -->
-        <div class={`aspect-square ${release.cover} shadow-lg border border-zinc-200 flex items-center justify-center text-white/50 font-mono text-xs`}>
-          [COVER ART]
+        <div class="aspect-square shadow-lg border border-zinc-200 relative group overflow-hidden">
+             <img 
+                src={release.cover} 
+                alt={release.title} 
+                class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 group-active:grayscale-0 transition-all duration-500" 
+              />
         </div>
 
         <!-- Tracklist -->
@@ -52,4 +66,28 @@ const releases = [
       </div>
     ))}
   </div>
+
+  <!-- Streaming Links -->
+  <section class="border-t border-zinc-200 pt-12">
+    <h3 class="font-mono text-xs uppercase tracking-widest text-zinc-500 mb-8 text-center">Listen Everywhere</h3>
+    <div class="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16">
+        <a href="#" class="group flex flex-col items-center gap-2">
+            <span class="font-sans font-bold text-zinc-900 group-hover:text-orange-600 transition-colors">Spotify</span>
+            <span class="h-px w-0 bg-orange-600 group-hover:w-full transition-all duration-300"></span>
+        </a>
+        <a href="#" class="group flex flex-col items-center gap-2">
+            <span class="font-sans font-bold text-zinc-900 group-hover:text-orange-600 transition-colors">Apple Music</span>
+            <span class="h-px w-0 bg-orange-600 group-hover:w-full transition-all duration-300"></span>
+        </a>
+        <a href="#" class="group flex flex-col items-center gap-2">
+            <span class="font-sans font-bold text-zinc-900 group-hover:text-orange-600 transition-colors">Bandcamp</span>
+            <span class="h-px w-0 bg-orange-600 group-hover:w-full transition-all duration-300"></span>
+        </a>
+        <a href="#" class="group flex flex-col items-center gap-2">
+            <span class="font-sans font-bold text-zinc-900 group-hover:text-orange-600 transition-colors">SoundCloud</span>
+            <span class="h-px w-0 bg-orange-600 group-hover:w-full transition-all duration-300"></span>
+        </a>
+    </div>
+  </section>
+
 </LogbookLayout>

@@ -5,12 +5,13 @@ import LogbookLayout from '../layouts/LogbookLayout.astro';
 <LogbookLayout title="Bio">
   <div class="grid md:grid-cols-2 gap-12 items-start">
     
-    <!-- Left: Image (Placeholder for now) -->
-    <div class="aspect-[4/5] bg-zinc-200 border border-zinc-300 relative">
-      <!-- You will put an <Image /> here later -->
-      <div class="absolute inset-0 flex items-center justify-center text-zinc-400 font-mono text-xs">
-        [ARTIST_PORTRAIT_01.JPG]
-      </div>
+    <!-- Left: Image -->
+    <div class="aspect-[4/5] relative overflow-hidden">
+      <img 
+        src="/pics/5.jpg" 
+        alt="Sampa Mulenga Portrait" 
+        class="absolute inset-0 w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500" 
+      />
     </div>
 
     <!-- Right: The Specs -->

@@ -1,4 +1,7 @@
 <script lang="ts">
+  import { currentAudio } from '../../stores/audioStore';
+  import { onDestroy } from 'svelte';
+
   let { src, title = "Untitled Session" } = $props();
   
   let audio: HTMLAudioElement;
@@ -6,14 +9,32 @@
   let progress = $state(0);
   let duration = $state(0);
 
+  // Subscribe to the store to handle exclusive playback
+  const unsubscribe = currentAudio.subscribe(activeAudio => {
+    if (activeAudio && activeAudio !== audio && isPlaying) {
+      audio.pause();
+      isPlaying = false;
+    }
+  });
+
+  onDestroy(() => {
+    unsubscribe();
+  });
+
   function toggle() {
     if (!audio) return;
+    
     if (audio.paused) {
+      // If another audio is playing, this store update will trigger its subscription to pause it
+      currentAudio.set(audio);
       audio.play();
       isPlaying = true;
     } else {
       audio.pause();
       isPlaying = false;
+      // Optional: Clear store if we are the active one pausing? 
+      // Not strictly necessary for the requirement, but good for state cleanliness.
+      // if ($currentAudio === audio) currentAudio.set(null); 
     }
   }
 
