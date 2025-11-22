@@ -1,0 +1,55 @@
+---
+import LogbookLayout from '../layouts/LogbookLayout.astro';
+import AudioPlayer from '../components/media/AudioPlayer.svelte';
+
+const releases = [
+  {
+    title: "Midnight In Lusaka",
+    year: "2024",
+    type: "EP",
+    cover: "bg-zinc-800", // Placeholder color
+    tracks: [
+      { title: "Intro", src: "/audio/intro.mp3" }, // Ensure these exist or placeholders
+      { title: "Night Walk", src: "/audio/night-walk.mp3" }
+    ]
+  }
+];
+---
+
+<LogbookLayout title="Discography">
+  <header class="mb-16 border-b border-zinc-200 pb-8">
+    <h1 class="font-sans text-4xl font-bold tracking-tight text-zinc-900 mb-4">
+      Discography
+    </h1>
+    <p class="font-serif text-lg text-zinc-600 italic">
+      Official releases and finished works.
+    </p>
+  </header>
+
+  <div class="space-y-20">
+    {releases.map(release => (
+      <div class="grid md:grid-cols-[200px_1fr] gap-8">
+        <!-- Cover Art -->
+        <div class={`aspect-square ${release.cover} shadow-lg border border-zinc-200 flex items-center justify-center text-white/50 font-mono text-xs`}>
+          [COVER ART]
+        </div>
+
+        <!-- Tracklist -->
+        <div>
+          <div class="flex items-baseline justify-between mb-6">
+            <h2 class="font-sans text-2xl font-bold text-zinc-900">{release.title}</h2>
+            <span class="font-mono text-xs uppercase tracking-widest text-zinc-500">{release.type} • {release.year}</span>
+          </div>
+
+          <div class="space-y-0">
+            {release.tracks.map((track, i) => (
+              <div class="py-2 border-b border-zinc-100 last:border-0">
+                <AudioPlayer client:visible src={track.src} title={`${i+1}. ${track.title}`} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</LogbookLayout>
