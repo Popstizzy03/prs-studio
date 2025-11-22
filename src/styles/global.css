@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* THE STUDIO THEME
   Strict monochromatic palette with one signal color.
 */
@@ -9,10 +11,16 @@
   --color-signal: #FF4F00; /* International Orange */
 }
 
+:root.dark {
+  --color-paper: #09090b; /* Zinc 950 - Deep Dark */
+  --color-ink: #fafafa;   /* Zinc 50 */
+}
+
 body {
   background-color: var(--color-paper);
   color: var(--color-ink);
   font-feature-settings: "ss01", "ss02"; /* Alternate font glyphs for a technical look */
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Markdown Content Styling */

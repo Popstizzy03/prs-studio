@@ -37,24 +37,24 @@
 
     <!-- Modal -->
     <div 
-      class="relative w-full max-w-2xl bg-white shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
+      class="relative w-full max-w-2xl bg-white dark:bg-zinc-900 shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
       transition:scale={{ start: 0.95, duration: 200 }}
     >
       
       <!-- Header -->
-      <div class="flex items-center justify-between p-6 border-b border-zinc-100">
+      <div class="flex items-center justify-between p-6 border-b border-zinc-100 dark:border-zinc-800">
         <div>
-          <div class="font-mono text-xs uppercase tracking-widest text-zinc-400 mb-1">{event.data.year}</div>
-          <h3 class="font-sans text-2xl font-bold text-zinc-900">{event.data.title}</h3>
+          <div class="font-mono text-xs uppercase tracking-widest text-zinc-400 dark:text-zinc-500 mb-1">{event.data.year}</div>
+          <h3 class="font-sans text-2xl font-bold text-zinc-900 dark:text-zinc-100">{event.data.title}</h3>
         </div>
-        <button onclick={onClose} class="text-zinc-400 hover:text-zinc-900 transition-colors">
+        <button onclick={onClose} class="text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">
           <span class="text-2xl">×</span>
         </button>
       </div>
 
       <!-- Carousel (if media exists) -->
       {#if slides.length > 0}
-        <div class="relative aspect-video bg-zinc-100 overflow-hidden group">
+        <div class="relative aspect-video bg-zinc-100 dark:bg-zinc-950 overflow-hidden group">
           {#each [slides[currentSlide]] as slide (currentSlide)}
             <div class="w-full h-full flex items-center justify-center" transition:fade={{ duration: 200 }}>
               {#if slide.type === 'image'}
@@ -62,7 +62,7 @@
               {:else if slide.type === 'video'}
                 <video src={slide.src} controls class="w-full h-full object-cover"></video>
               {:else}
-                <div class="flex flex-col items-center justify-center text-zinc-400">
+                <div class="flex flex-col items-center justify-center text-zinc-400 dark:text-zinc-600">
                   <span class="text-4xl mb-2">📷</span>
                   <span class="font-mono text-xs uppercase tracking-widest">More Soon</span>
                 </div>
@@ -72,8 +72,8 @@
 
           <!-- Controls -->
           {#if slides.length > 1}
-            <button onclick={prev} class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-zinc-900 h-8 w-8 flex items-center justify-center rounded-full shadow-sm opacity-0 group-hover:opacity-100 transition-opacity">←</button>
-            <button onclick={next} class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white text-zinc-900 h-8 w-8 flex items-center justify-center rounded-full shadow-sm opacity-0 group-hover:opacity-100 transition-opacity">→</button>
+            <button onclick={prev} class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-black/50 hover:bg-white dark:hover:bg-black text-zinc-900 dark:text-white h-8 w-8 flex items-center justify-center rounded-full shadow-sm opacity-0 group-hover:opacity-100 transition-opacity">←</button>
+            <button onclick={next} class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 dark:bg-black/50 hover:bg-white dark:hover:bg-black text-zinc-900 dark:text-white h-8 w-8 flex items-center justify-center rounded-full shadow-sm opacity-0 group-hover:opacity-100 transition-opacity">→</button>
             
             <!-- Dots -->
             <div class="absolute bottom-4 left-0 right-0 flex justify-center gap-2">
@@ -86,7 +86,7 @@
       {/if}
 
       <!-- Body Content -->
-      <div class="p-6 overflow-y-auto prose prose-zinc prose-sm">
+      <div class="p-6 overflow-y-auto prose prose-zinc dark:prose-invert prose-sm">
         {@html event.body} <!-- Note: We'll pass rendered HTML content -->
       </div>
 

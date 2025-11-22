@@ -10,14 +10,25 @@ const logs = (await getCollection('logs')).sort(
 
 <LogbookLayout title="Index">
   
-  <header class="mb-16 border-b border-zinc-200 pb-8">
-    <h1 class="font-sans text-4xl font-bold tracking-tight text-zinc-900 mb-4">
-      Session Logs
-    </h1>
-    <p class="font-serif text-lg text-zinc-600 italic">
-      "A collection of drafts, textures, and thoughts from the studio."
-    </p>
-  </header>
+  <!-- Hero Section -->
+  <section class="relative py-24 md:py-32 mb-20 border-b border-zinc-200 -mx-6 px-6 md:-mx-0 md:px-0 bg-zinc-50/50 overflow-hidden">
+    <div class="absolute inset-0 opacity-[0.58] bg-[url('/pics/3.jpg')] bg-cover bg-center grayscale pointer-events-none"></div>
+    
+    <div class="relative z-10">
+      <div class="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-orange-600 mb-6">
+        <span class="h-px w-8 bg-orange-600"></span>
+        <span>Lusaka, ZM</span>
+      </div>
+      
+      <h1 class="font-sans text-6xl md:text-8xl font-bold tracking-tighter text-zinc-900 mb-8">
+        Hello, I'm Sampa Mulenga
+      </h1>
+      
+      <p class="font-serif text-xl md:text-2xl text-black leading-relaxed max-w-lg border-l-2 border-orange-600 pl-6">
+        "A collection of drafts, textures, and thoughts from the studio."
+      </p>
+    </div>
+  </section>
 
   <div class="space-y-12 relative">
     <!-- Vertical Timeline Line (Decorative) -->
