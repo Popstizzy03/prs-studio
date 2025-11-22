@@ -27,11 +27,11 @@ const releases = [
 ---
 
 <LogbookLayout title="Discography">
-  <header class="mb-16 border-b border-zinc-200 pb-8">
-    <h1 class="font-sans text-4xl font-bold tracking-tight text-zinc-900 mb-4">
+  <header class="mb-16 border-b border-zinc-200 dark:border-zinc-800 pb-8">
+    <h1 class="font-sans text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 mb-4">
       Discography
     </h1>
-    <p class="font-serif text-lg text-zinc-600 italic">
+    <p class="font-serif text-lg text-zinc-600 dark:text-zinc-400 italic">
       Official releases and finished works.
     </p>
   </header>
@@ -40,7 +40,7 @@ const releases = [
     {releases.map(release => (
       <div class="grid md:grid-cols-[200px_1fr] gap-8">
         <!-- Cover Art -->
-        <div class="aspect-square shadow-lg border border-zinc-200 relative group overflow-hidden">
+        <div class="aspect-square shadow-lg border border-zinc-200 dark:border-zinc-800 relative group overflow-hidden">
              <img 
                 src={release.cover} 
                 alt={release.title} 
@@ -51,13 +51,13 @@ const releases = [
         <!-- Tracklist -->
         <div>
           <div class="flex items-baseline justify-between mb-6">
-            <h2 class="font-sans text-2xl font-bold text-zinc-900">{release.title}</h2>
-            <span class="font-mono text-xs uppercase tracking-widest text-zinc-500">{release.type} • {release.year}</span>
+            <h2 class="font-sans text-2xl font-bold text-zinc-900 dark:text-zinc-100">{release.title}</h2>
+            <span class="font-mono text-xs uppercase tracking-widest text-zinc-500 dark:text-zinc-400">{release.type} • {release.year}</span>
           </div>
 
           <div class="space-y-0">
             {release.tracks.map((track, i) => (
-              <div class="py-2 border-b border-zinc-100 last:border-0">
+              <div class="py-2 border-b border-zinc-100 dark:border-zinc-800 last:border-0">
                 <AudioPlayer client:visible src={track.src} title={`${i+1}. ${track.title}`} />
               </div>
             ))}
@@ -68,24 +68,24 @@ const releases = [
   </div>
 
   <!-- Streaming Links -->
-  <section class="border-t border-zinc-200 pt-12">
-    <h3 class="font-mono text-xs uppercase tracking-widest text-zinc-500 mb-8 text-center">Listen Everywhere</h3>
+  <section class="border-t border-zinc-200 dark:border-zinc-800 pt-12">
+    <h3 class="font-mono text-xs uppercase tracking-widest text-zinc-500 dark:text-zinc-400 mb-8 text-center">Listen Everywhere</h3>
     <div class="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16">
         <a href="#" class="group flex flex-col items-center gap-2">
-            <span class="font-sans font-bold text-zinc-900 group-hover:text-orange-600 transition-colors">Spotify</span>
-            <span class="h-px w-0 bg-orange-600 group-hover:w-full transition-all duration-300"></span>
+            <span class="font-sans font-bold text-zinc-900 dark:text-zinc-100 group-hover:text-orange-600 dark:group-hover:text-orange-500 transition-colors">Spotify</span>
+            <span class="h-px w-0 bg-orange-600 dark:bg-orange-500 group-hover:w-full transition-all duration-300"></span>
         </a>
         <a href="#" class="group flex flex-col items-center gap-2">
-            <span class="font-sans font-bold text-zinc-900 group-hover:text-orange-600 transition-colors">Apple Music</span>
-            <span class="h-px w-0 bg-orange-600 group-hover:w-full transition-all duration-300"></span>
+            <span class="font-sans font-bold text-zinc-900 dark:text-zinc-100 group-hover:text-orange-600 dark:group-hover:text-orange-500 transition-colors">Apple Music</span>
+            <span class="h-px w-0 bg-orange-600 dark:bg-orange-500 group-hover:w-full transition-all duration-300"></span>
         </a>
         <a href="#" class="group flex flex-col items-center gap-2">
-            <span class="font-sans font-bold text-zinc-900 group-hover:text-orange-600 transition-colors">Bandcamp</span>
-            <span class="h-px w-0 bg-orange-600 group-hover:w-full transition-all duration-300"></span>
+            <span class="font-sans font-bold text-zinc-900 dark:text-zinc-100 group-hover:text-orange-600 dark:group-hover:text-orange-500 transition-colors">Bandcamp</span>
+            <span class="h-px w-0 bg-orange-600 dark:bg-orange-500 group-hover:w-full transition-all duration-300"></span>
         </a>
         <a href="#" class="group flex flex-col items-center gap-2">
-            <span class="font-sans font-bold text-zinc-900 group-hover:text-orange-600 transition-colors">SoundCloud</span>
-            <span class="h-px w-0 bg-orange-600 group-hover:w-full transition-all duration-300"></span>
+            <span class="font-sans font-bold text-zinc-900 dark:text-zinc-100 group-hover:text-orange-600 dark:group-hover:text-orange-500 transition-colors">SoundCloud</span>
+            <span class="h-px w-0 bg-orange-600 dark:bg-orange-500 group-hover:w-full transition-all duration-300"></span>
         </a>
     </div>
   </section>
